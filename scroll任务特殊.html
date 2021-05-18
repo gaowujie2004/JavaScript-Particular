@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    
+    box-sizing: border-box;
+  }
+  .box {
+    height: 30vh;
+    margin: 20px 0;
+    background: linear-gradient(30deg, deeppink, deepskyblue);
+  }
+</style>
+<title> scroll UI任务</title>
+</head>
+<body>
+  
+
+
+  <h5>页面滚动就要 重新 paint->光栅化, 那么这类任务交给主线程吗?</h5>
+  肯定不能, 渲染器主线程所执行的东西 已经很多了， 滚动是很频繁的。 
+  所以 ， 滚动产生的UI任务是放到了 渲染器的其他线程中。
+
+  <P>
+    注意： 滚动产生的UI任务是指 要进行 paint  ->  光栅化。 
+    不是指 window.onscroll = callback， 不是指这个callback
+  </P>
+
+  <p>
+    给window.onscroll = callback  这个callback将会阻塞主线程 500ms。
+  </p>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  
+  <style>
+    
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    
+    let mainSleep = function(duration=1000) {
+      let date = Date.now()
+      while (Date.now() - date <= duration) {}
+    }
+
+
+    let scroll1 = function() {
+      // 主线程 阻塞 n秒
+      mainSleep(500)
+    }
+  
+    window.addEventListener('scroll', scroll1)
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> 捕获阶段阻止蔓延 </title>
+</head>
+<body>
+  <div class="father">
+    <div class="son"></div>
+  </div>
+  <style>
+    .father {
+      width: 60vw;
+      height: 60vh;
+      border: 3px solid red;
+      display: flex;
+     
+    }
+    .son {
+      background-color: pink;
+      margin: auto;
+      width: 50%;
+      height: 50%;
+      flex: 0 0 auto;
+    }
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    // father 在捕获阶段触发. 阻止蔓延. 若目标元素是 .son 则 .son 不会被触发
+    $('.father').addEventListener('click', e => {
+      console.log(e.target, '.father')
+      e.stopPropagation()
+    }, true)
+
+    $('.son').addEventListener('click', e => {
+      console.log(e.target, '.son')
+    })
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> 加深理解文档碎片 </title>
+</head>
+<body>
+  将文档中的元素节点 appendChild 到 文档碎片中, 将会在界面中消失. 进入到指定对象内存中. 
+  appendChild  appChild   insertBefore  具有移动性.  
+  把节点对象 移动到内存中. 
+
+
+  同理. 最后 app.appendChild(frag)
+  frag 中的节点对象消失, 进入DOM树中. 
+
+  <div id="app">
+    <div>GaoWuJie</div>
+    <span>
+      hhhh
+      <img src="" alt="">
+    </span>
+  </div>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    let frag = document.createDocumentFragment()
+    let app = $('#app')
+    let childNode = null
+
+    // 具有移动性,  app.firstChild 将从文档中, 被移动到 内存中, 在UI界面中消失.
+    while (childNode = app.firstChild) {
+      frag.appendChild(childNode)
+    }
+    console.log(frag.childNodes.length);
+
+
+    
+    // 上面代码是 在主线程同步执行.
+    // mainSleep(2000)
+  </script>
+</body>
+</html>

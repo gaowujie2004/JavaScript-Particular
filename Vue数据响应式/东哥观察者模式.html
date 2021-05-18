@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> 东哥观察者模式(observer) </title>
+</head>
+<body>
+  <style>
+    
+  </style>
+  <script>
+    let data = {
+      age: 20,
+      setAge(newVal) {
+        this.age = newVal
+        // 注意 要放到后面
+        this.notify()
+      },
+      subs: [],
+      notify() {
+        // 通知 age 属性的 订阅者(观察者)
+        // 通知观察者, 你们观察的 age属性改变了. 接下来 你们要干嘛 自己看着办.
+        this.subs.forEach(watcher => watcher.getAge())
+      }
+    }
+    let watcher1 = {
+      age: 0,
+      getAge() {
+        this.age = data.age
+        console.log(`观察者1 -> 观察的是 age属性, 新值是: ${data.age}`)
+      }
+    }
+    let watcher2 = {
+      age: 0,
+      getAge() {
+        this.age = data.age
+        console.log(`观察者2 -> 观察的是 age属性, 新值是: ${data.age}`)
+      }
+    }
+    let watcher3 = {
+      age: 0,
+      getAge() {
+        this.age = data.age
+        console.log(`观察者3 -> 观察的是 age属性, 新值是: ${data.age}`)
+      }
+    }
+  
+    data.subs.push(watcher1, watcher2, watcher3)
+
+    // 总结. 每个 data属性 里面保存的有 观察者们 被放入数组中. 
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> 测试 JS-click </title>
+</head>
+<body>
+  
+  <style>
+    
+  </style>
+  <button>CLICK ME</button>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    Promise.resolve().then(_ => console.log(-1111));
+
+    let btn = $('button')
+    btn.addEventListener('click', e => {
+      Promise.resolve().then(v => console.log('Mircores 111'))
+      console.log('Listener 111');
+    })
+    btn.addEventListener('click', e => {
+      Promise.resolve().then(v => console.log('Mircores 2222'))
+      console.log('Listener 2222');
+      console.log(e)
+    })
+
+    btn.click()
+    console.log('同步任务. ')
+
+    // 'listener111'    'Listener 2222'   '同步任务. '
+    // 微: -1111   Mircores 1111    Mircores 2222
+    
+
+  </script>
+</body>
+</html>

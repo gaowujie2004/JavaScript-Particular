@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> ES6 module </title>
+</head>
+<body>
+  
+  <!-- 想要使用 import 命令 就得给脚本添加  type="module" -->
+  <script type="module">
+    import { c } from '/module/utils.js'
+    c.add()
+    console.log(c,'111.js')
+  </script>
+
+<script type="module">
+  import { c } from '/module/utils.js'
+  let gwj = 'GaoWuJie'
+  console.log(c, '222.js')
+</script>
+  
+</body>
+</html>

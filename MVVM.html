@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> 手写 Vue 数据响应式 - 数据双向绑定 </title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="school.name">
+    不是想要的
+    {{ school.name }}
+    {{ school.age }}
+    <ul>
+      
+      <li>第一li</li>
+      <li>{{ school.age }}</li>
+      <li>第二li</li>
+    </ul>
+    <div>GaoWuJie</div>
+    <div>{{test}}</div> 
+    <div>
+      使用了计算属性:
+      <p>{{getVal}}</p>
+      <p>{{getVal}}</p>
+      <p>{{getVal}}</p>
+    </div>
+
+    <button v-on:click="change">点击我</button>
+  </div>
+
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    
+  </script>
+  <script src="./MVVM4.js"></script>
+  <script>
+  let app = new Vue({
+    el: '#app',
+    data: {
+      school: {
+        name: 'GWJ',
+        age: 21
+      },
+      test: 3434
+    },
+    computed: {
+      getVal() {
+        // 如果 this.school.age 不变, 多次使用 getVal之后会使用缓存值.
+        return this.school.age
+      }
+    },
+    methods: {
+      change(e) {
+        console.log('点击' , '---------> this', this)
+        console.log('事件对象',e)
+      }
+    }
+  })
+  </script>
+</body>
+</html>

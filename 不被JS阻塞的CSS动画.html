@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> 不被 JS阻塞的动画 </title>
+  <style>
+    .box {
+      height: 20vh;
+      background-color: skyblue;
+    }
+    .box {
+      margin: 20px 0;
+    }
+    
+    button {
+      padding: 1em;
+    }
+
+    .height_transform {
+      width: 100%;
+      height: 150px;
+      background-color: red;
+      
+    }
+    .move {
+      animation: change 2s infinite alternate;
+    }
+
+    @keyframes change {
+      to {
+        transform: scaleX(.3);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="box" style="height: auto;">
+    点击阻塞: 此时会执行一个函数,这个函数会阻塞主线程 2000 ms <br>
+    当动画属性是 transform opacity, 其他的属性造成的 UI类任务是在 主线程上执行(先放入任务队列)
+    而 transform opacity 是直接在 渲染器的合成线程中执行的, 占用的内存是 GPU.
+    所以 和 主线程 分离了. 
+
+    <br><br>
+    有个变动: 当点击按钮时, 我才给 div 添加 动画类名, 但是这个事件回调函数 阻塞主线程 2000ms
+    那么 2000ms 后才会添加上对应的 类名.
+
+    <button>开始阻塞</button>
+  </div>
+  
+  <div class="height_transform">我是 transform 属性改变的</div>
+
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  
+
+  <script>
+    /**
+     * @param { string } DOMStr - CSS选择器字符串
+     * @return { HTMLElement|Error } 
+    */
+    let $ = function(DOMStr){
+      try {
+        return document.querySelector(DOMStr)
+      } catch (err) {
+        return err
+      }
+    }
+    
+    /**
+     * @param { string } DOMStr - CSS 选择器字符串
+     * @return { Array|Error }
+    */
+    let $$ = function(DOMStr) {
+      try {
+        return Array.from(document.querySelectorAll(DOMStr))
+      } catch(err) {
+        return err
+      }
+    }
+    
+    let mainSleep = function(duration=1000) {
+      let date = Date.now()
+      while (Date.now() - date <= duration) {}
+    }
+
+    let i = 0;
+    let scroll1 = function() {
+
+      // 计算样式被阻塞
+      $('.height_transform').classList.add('move')
+      // 主线程 阻塞 n秒
+      mainSleep(2000)
+    }
+  
+    $('button').addEventListener('click', scroll1 )
+
+    
+
+    
+    // 第一份是： 只要滚动
+    // 第二分是： 滚动， 加width改变()
+    // 第三份是：  不要页面滚动 ， 定时器 改变DOM width
+  </script>
+  
+</body>
+</html>

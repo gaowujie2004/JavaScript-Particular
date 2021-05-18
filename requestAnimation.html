@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title>  </title>
+</head>
+<body>
+  
+  <style>
+    body {
+      padding: 50px;
+    }
+    p {
+      border: 1px solid;
+      padding: 10px;
+      margin: 20px auto;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+    }
+  </style>
+  <h1>request Animation Frame</h1>
+  <p></p>
+  <div class="box"></div>
+  <button>GO</button>
+
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    let box = $('.box')
+    let p = $('p')
+    let btn = $('button')
+    let vw = document.documentElement.clientWidth
+
+    let number = 1
+    function numberChange() {
+      box.style.transform = `translateX(${number}px)`
+      number+=10
+
+      if (number <= vw-200) {
+        requestAnimationFrame(numberChange)
+      }
+    }
+    requestAnimationFrame(numberChange)
+
+
+    box.addEventListener('click', console.log)
+    
+  </script>
+</body>
+</html>

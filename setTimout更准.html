@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  /* button:first-of-type */
+</style>
+<title> setTimeout 模拟 setInterval 准确的. </title>
+</head>
+<body>
+  <form action="" name="form">
+
+    理想值: <input type="text" id="ideal">  <br><br>
+    真实值: <input type="text" id="real">   <br><br>
+    误差:  <input type="text" id="diff">    <br><br>
+  </form>
+  <button><h1>开始</h1></button>
+  <button><h1>停止</h1></button>
+  <style>
+    
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+
+
+
+    form = document.form
+    // 总差值 
+    function timer0() {
+      var speed = 1000, // 设定间隔
+      counter = 1,  // 计数
+      start = Date.now();
+      
+     
+      function instance(){
+        var ideal = (counter * speed),
+        real = (Date.now() - start);        
+        counter++;
+        form.ideal.value = ideal; // 记录理想值
+        form.real.value = real;   // 记录真实值
+
+        var diff = (real - ideal);
+        form.diff.value = diff;  // 差值
+
+        /**
+         * 假设下面是真实要执行的. 业务代码. 假设耗时 900ms.
+        */
+       console.log(`第${counter}次执行`)
+        var date = Date.now()
+        while (Date.now()-date <= 900) {}
+
+
+        window.timeout = setTimeout(instance, speed);
+      }
+      
+      window.timeout = setTimeout(instance, speed);
+    }
+    
+    function timer1() {
+      var speed = 40, // 设定间隔
+      counter = 1,  // 计数
+      start = Date.now();
+      
+      function instance()
+      {
+        var now = Date.now();
+        var ideal = speed,
+        real = (now- start);
+        
+        counter++;
+        form.ideal.value = ideal; // 记录理想值
+        form.real.value = real;   // 记录真实值
+
+        var diff = (real - ideal);
+        form.diff.value = diff;  // 差值
+
+        // 更改. 
+        start = now
+
+        // var date = Date.now()
+        // while (Date.now()-date <= 10) {}
+
+        window.timeout = setTimeout(instance, speed);
+      };
+      
+      window.timeout = setTimeout(instance, speed);
+    }
+
+    function timer() {
+      var speed = 1000, // 设定间隔
+      counter = 1,  // 计数
+      start = Date.now();
+      
+     
+      function instance(){
+        var ideal = (counter * speed),
+        real = (Date.now() - start);        
+        counter++;
+        form.ideal.value = ideal; // 记录理想值
+        form.real.value = real;   // 记录真实值
+
+        var diff = (real - ideal);
+        form.diff.value = diff;  // 差值
+
+        /**
+         * 假设下面是真实要执行的. 业务代码. 假设耗时 900ms.
+        */
+       console.log(`第${counter}次执行`)
+        var date = Date.now()
+        while (Date.now()-date <= 900) {}
+      }
+      
+      window.timeout = setInterval(instance, speed);
+    }
+    $('button:first-of-type').onclick = function() {
+      timer();
+    }
+    $('button:last-of-type').onclick = function() {
+      clearInterval(window.timeout)
+    }
+  </script>
+</body>
+</html>

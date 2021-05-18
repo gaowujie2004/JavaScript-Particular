@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+  
+    box-sizing: border-box;
+  }
+</style>
+<title> 倒序 元素节点 </title>
+</head>
+<body>
+  <ul>
+    <li>11</li>
+    <li>222</li>
+    <li>3333</li>
+    <li>44444</li>
+  </ul>
+  <style>
+    
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    let ul = $('ul')
+    let lis = $$('li')
+
+    /**
+     * 第一种： 常规操作-未理解本质
+     * appendChild/append  如果是文档中的元素， 那么会在文档中删除
+    */
+    // for (let li of lis) {
+    //   ul.removeChild(li)
+    // }
+    // lis.reverse()
+    // for (let li of lis) {
+    //   ul.append(li)
+    // }
+
+
+    /**
+     * 第二种： 对第一种的简化
+     * 
+    */
+    // lis.reverse()
+    // lis.forEach(el => ul.append(el))
+
+    /**
+     * 第三种： 
+    */
+    // let i = lis.length-1
+    // while (--i >= 0) {
+    //   ul.append(lis[i])
+    // }
+
+
+    /**
+     * insertBefore
+    */
+    // for (let i=lis.length-1; i>=0; i--) {
+    //   // 新节点， 参考子节点
+    //   ul.insertBefore(lis[i], lis[0])
+    // }
+
+
+    let range = new Range()
+    range.selectNodeContents(ul)
+    let frag = range.extractContents()
+    let len = lis.length
+    while (--len >= 0) {
+      frag.append(lis[len])
+    }
+    ul.append(frag)
+
+    
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title>  </title>
+</head>
+<body>
+  
+  <style>
+    body {
+      padding: 50px;
+    }
+    p {
+      border: 1px solid;
+      padding: 10px;
+      margin: 20px auto;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+    }
+  </style>
+  <h1>request Animation Frame</h1>
+  <p>
+    确实有 事件监听线程. 主线程即便阻塞了,  事件监听仍然能监听.
+    并且 UI变化也是 的样式也加入到了 任务队列
+  </p>
+  <p>
+    为什么要, 2000ms 后 阻塞主线程?
+    因为: 如果一开始就阻塞, DOM还没有完全构建完毕呢.
+  </p>
+  <div class="box"></div>
+
+
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    let box = $('.box')
+    box.addEventListener('click', console.log)
+
+    setTimeout(_ => {
+      console.log('主线程开始被阻塞')
+      mainSleep(3000)
+    }, 2000)
+  </script>
+</body>
+</html>
