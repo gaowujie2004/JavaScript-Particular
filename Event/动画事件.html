@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> 动画事件 </title>
+</head>
+<body>
+  <div class="div"></div>
+  <style>
+    @keyframes go {
+      to {
+        transform: scale(2);
+      }
+    }
+    .div {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      animation: go 20s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 3;
+    }
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    let div = $('div')
+
+    // 开始时触发, 只触发一次. 
+    div.addEventListener('animationstart', e => {
+      console.log('动画开始')
+    })
+
+    // 结束时触发 - duration*count完了才会触发
+    div.addEventListener('animationend', e => {
+      console.log('动画end')
+    })
+
+    // 结束时触发
+    div.addEventListener('animation', e => {
+      console.log('动画end')
+    })
+
+    
+    div.addEventListener('animationiteration', e => {
+      console.log('再次触发了')
+    })
+  </script>
+</body>
+</html>

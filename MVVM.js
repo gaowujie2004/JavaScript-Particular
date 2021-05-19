@@ -115,7 +115,6 @@ class Compiler {
       } 
       // 不是元素节点, 是文本节点对象 {递归的退出条件}
       this.compilerText(child)
-
     })
   }
 
