@@ -49,10 +49,16 @@
     $('.father').addEventListener('click', e => {
       console.log(e.target, '.father')
       e.stopPropagation()
-    }, true)
+    })
 
     $('.son').addEventListener('click', e => {
       console.log(e.target, '.son')
+      e.preventDefault()
+    })
+    $('.son').addEventListener('mousedown', e => {
+      console.log(e.target, '.son mouseup')
+      e.stopPropagation()
+      e.preventDefault()  // 只会阻止 mousedown 的蔓延
     })
 
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title>  </title>
+</head>
+<body>
+  <div>
+    GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+  </div>
+  <style>
+    
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+    
+    // alert()  是真正的 阻塞主线程的语句  , 阻止代码执行.  ui也阻塞
+    // debugger 阻塞的代码 函数执行. UI任务不阻塞 
+
+    setTimeout(_ => {
+      $('div').innerHTML = '哈哈哈'
+      alert()  // 不点击的化.  主线程阻塞.  UI任务在 任务队列中等待. 
+    }, 2000)
+    
+    
+  </script>
+</body>
+</html>

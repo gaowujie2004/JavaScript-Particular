@@ -80,9 +80,13 @@
     //   console.log(e)
     // })
 
-    // $('a').onclick = function(e) {
-    //   e.preventDefault()
-    // }
+    $('a').addEventListener('click',function(e) {
+      e.preventDefault()
+      console.log('oj');
+    }, { passive: false })
+    // passive :true时, passive 选项的默认值始终为false
+    // passive:false  e.preventDefault() 起效果.
+    // true时 e.preventDefault() 不不不起效果  - 就是 一值能触发默认行为.
 
     function father() {}
     function son() {}

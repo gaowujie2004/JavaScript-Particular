@@ -257,6 +257,7 @@ class Observer {   // 实现数据劫持功能
     // dep 发布者. 里面有与之对应的订阅者
     let dep = new Dep()   // 给data里每个属性 添加一个具有发布订阅的功能. 依赖收集   school.name: [watcher1,watcher2....]
 
+    console.log(dep, '----------------------->')
     // 形成闭包
     Object.defineProperty(data, key, {
       get() {
