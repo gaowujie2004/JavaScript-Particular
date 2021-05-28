@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> history pushState() 改变URL不刷新 </title>
+</head>
+<body>
+  要在 HTTP/HTTPS协议下才可以.
+  pushState()  会放入到 history栈中. 
+
+  - 怎么监听呢?
+  window.onpopState - 当 history.back() / .forward()/ go() 
+  触发. 
+
+  <style>
+    
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    window.onpopstate = function(){
+      console.log('url改变了!!!!!!')
+    }
+    // history.pushState({}, '', '/test.html')
+  </script>
+</body>
+</html>

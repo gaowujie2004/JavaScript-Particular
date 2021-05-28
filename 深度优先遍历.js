@@ -36,3 +36,5 @@ function goObj(val, outkey) {
   outObj[outkey] = val       
 }
 goObj(obj)
+
+

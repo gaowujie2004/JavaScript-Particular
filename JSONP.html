@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+	</style>
+	<title> JSONP </title>
+</head>
+
+<body>
+
+	<style>
+
+	</style>
+	<script>
+		let $ = function(str) {
+			return document.querySelector(str)
+		}
+		let $$ = function(str) {
+			return Array.from(document.querySelectorAll(str))
+		}
+		let mainSleep = function(duration = 1000) {
+			let date = Date.now()
+			while (Date.now() - date <= duration) {}
+		}
+
+		let axios = {}
+		axios.jsonp = function(url, params={}) {
+			// callback -> cb
+			return new Promise((resolve, reject) => {
+				let qs = new URLSearchParams(params)
+				let cbName = 'jsonp'+Date.now()+parseInt((Math.random()*9000)+1000)
+				let fullURL = `${url}?callback=${cbName}`				
+
+				window[cbName] = function(res) {
+					resolve(res)
+					document.head.removeChild(script)
+					delete window[cbName]
+				}
+				window.onerror = function(err) {
+					reject(err)
+					document.head.removeChild(script)
+					delete window[cbName]
+				}
+
+				let script = document.createElement('script')
+				script.src = fullURL
+				document.head.appendChild(script)
+			})
+		}
+
+		
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title>  </title>
+</head>
+<body>
+  <script type="module">
+    // improt  就像是一种符号连接. 不要再把 它看成对象解构 了
+    // 串行导入时, 多次导入有缓存
+
+    // 不可修改
+    import { a } from '/utils.js'
+    setInterval(_ => {
+      console.log(a)
+      // 会变. 
+    }, 1000)
+  </script>
+  <style>
+    
+  </style>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title>  </title>
+</head>
+<body>
+  <ul>
+    <li>{{msg}}</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <p>haha</p>
+  
+  <script>
+
+    var textNodes = []
+    var textKong = /\{\[\s]*\}\}/;
+    var textReg = /\{\{[^}]+\}\}/;
+
+    var textRegOk = /\{\{(?!\s+\}\})[^}]+\}\}/;
+    // 仿写 Vue - 遍历文本节点
+    function forNode(node) {
+      if (node.nodeType === 3) {
+
+        if (!textKong.test(node.nodeValue) && textReg.test(node.nodeValue))
+        textNodes.push( node )
+        return
+      }
+
+      // 元素节点 - 只要是元素节点, 很有可能有 子节点
+      // 文本节点是最小的了.
+      if (node.tagName==='SCRIPT') { return }
+      var childNodes = [...node.childNodes]
+      return childNodes.forEach(forNode)
+    }
+
+    forNode( document.body )
+
+
+  </script>
+
+
+</body>
+</html>
