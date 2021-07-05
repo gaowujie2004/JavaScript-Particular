@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
+<title> blur 捕获. 有效,  没有冒泡 </title>
+</head>
+<body>
+  <style>
+    div {
+      padding: 20px;
+      border: 1px solid red;
+    }
+  </style>
+
+
+  <div>
+    <button>点我</button>
+  </div>
+  <script>
+    let $ = function(str) {
+      return document.querySelector(str)
+    }
+    let $$ = function(str) {
+        return Array.from(document.querySelectorAll(str))
+    }
+    let mainSleep = function(duration=1000) {
+        let date = Date.now()
+        while (Date.now() - date <= duration) {}
+    }
+
+    // 可以被输出
+    $('div').addEventListener('focus', e => {
+      console.log(e);
+    }, true)
+  </script>
+</body>
+</html>

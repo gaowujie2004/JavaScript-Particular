@@ -17,16 +17,30 @@ class Utils {
     Object.seal(this)
   }
 
-  // 继承方法 - 原型链
+  /**
+   * @param { Any } 
+   * @return { String } - 'String' | 'Object' 这类的
+  */
   getType(v) {
     // return: Set| Array | ....
     return Object.prototype.toString.call(v).slice(8, -1)
   }
 
-  // isType({}, 'Object')
-  isType(target, typeStr) {
+  /**
+   * @param { Any } target - 要判断的值
+   * @param { Function } constructorName - 构造函数
+  */
+  isType(target, constructorName) {
     // 严格遵守 驼峰命名法
-    return Object.prototype.toString.call(target) === `[object ${typeStr}]`
+    return Object.prototype.toString.call(target) === `[object ${constructorName.name}]`
+  }
+
+  /**
+   * @param { Any } v
+   * @return { Boolean }
+  */
+  isObject(v) {
+    return Object(v) === v
   }
 
   deepClone(obj) {
