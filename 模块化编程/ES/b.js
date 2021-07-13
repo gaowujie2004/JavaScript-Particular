@@ -1,5 +1,7 @@
-console.log('b.js')
 
-import { a } from '/utils.js'
+import {a, changeA} from '/utils.js'
 
-export var b = 'bbb'
+console.log('bbbbbb.js', a)
+changeA()
+
+export default a 

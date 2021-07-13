@@ -47,9 +47,10 @@
   </style>
   
   <button>CLICK ME</button>
-  <button>阻塞</button>
+  <!-- <button>阻塞</button> -->
 
   <div></div>
+
   <script>
     let $ = function(str) {
       return document.querySelector(str)
@@ -63,19 +64,30 @@
     }
     
     
-
     
-    $('button').addEventListener('click', _ => {
-      Promise.resolve().then(_ => console.log('promise 111'))
-      console.log(111);
-    })
-    $('button').addEventListener('click', _ => {
-      Promise.resolve().then(_ => console.log('promise 222'))
-      console.log(222);
-    })
+    
+    // $('button').addEventListener('click', _ => {
+    //   Promise.resolve().then(_ => console.log('promise 111') )
+    //   console.log(111)
+    // })
+    // $('button').addEventListener('click', _ => {
+    //   Promise.resolve().then(_ => console.log('promise 222'))
+    //   console.log(222);
+    // })
+
 
     // $('button').click() 
-    // 他不会把  事件处理函数 放入到 任务队列. 而是直接 放到主线程. 
+
+    
+
+    setTimeout( _=> {
+      console.log(11111)
+    }, 3000)
+
+    console.log(-111111) 
+
+    //
   </script>
+
 </body>
 </html>

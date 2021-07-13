@@ -14,20 +14,13 @@
 <title>  </title>
 </head>
 <body>
+  页面内容
   <script type="module">
-    // improt  就像是一种符号连接. 不要再把 它看成对象解构 了
-    // 串行导入时, 多次导入有缓存
-
-    // 不可修改
-    import { a } from '/utils.js'
-    setInterval(_ => {
-      console.log(a)
-      // 会变. 
-    }, 1000)
-  </script>
-  <style>
+    import { a,changeA } from '/utils.js'
+    import '/b.js'
     
-  </style>
+    console.log('index中111', a)
+  </script>
   <script>
     let $ = function(str) {
       return document.querySelector(str)
@@ -41,5 +34,14 @@
     }
     
   </script>
+
+<script type="module">
+  import { a,changeA } from '/utils.js'
+  import '/b.js'
+  
+  changeA()
+  console.log('第二次引入.修改了', a)
+  
+</script>
 </body>
 </html>

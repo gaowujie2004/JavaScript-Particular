@@ -10,15 +10,19 @@
     padding: 0;
     box-sizing: border-box;
   }
-</style>
+</style> dsf
 <title> ES6 module </title>
 </head>
 <body>
   
   <!-- 想要使用 import 命令 就得给脚本添加  type="module" -->
   <script type="module">
-    import { c } from '/module/utils.js'
+    import { c, name } from '/module/utils.js'
     c.add()
+
+    setInterval(_ => {
+      console.log('name', name)
+    }, 1000)
     console.log(c,'111.js')
   </script>
 

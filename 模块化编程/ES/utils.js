@@ -1,8 +1,15 @@
-console.log('utils.js 被引用 ')
-export var a = 20
+console.log('utils 被执行')
 
-import { b } from '/b.js'
+function Utils() {
+  this.count = 1
+}
 
-setInterval(_ => {
+Utils.prototype.addCount = function() {
+  this.count++
+}
+// 这样也是单例模式。 我的猜测
+
+export var a = 4
+export function changeA() {
   a++
-}, 1000)
+}
