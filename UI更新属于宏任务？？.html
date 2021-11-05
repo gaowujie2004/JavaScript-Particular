@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+</style>
+<title> UI更新属于宏任务 </title>
+</head>
+<body>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            transition: transform 3s;
+        }
+    </style>
+
+    
+    <div class="box">
+        UI更新 - 宏任务 ？？????? NO  对
+    </div>
+
+    <script>
+        let $ = function(str) {
+        return document.querySelector(str)
+        }
+        let $$ = function(str) {
+            return Array.from(document.querySelectorAll(str))
+        }
+        
+        let mainSleep = function(duration=1000) {
+            let date = Date.now()
+            while (Date.now() - date <= duration) {}
+        } 
+
+        let styleSet = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, 'cssText').set;
+
+        
+        
+        // 下面代码： 4s 后UI才更新。
+        // 结论： UI更新属于 异步任务。
+        // setTimeout( _ => {
+        //     styleSet.call($('.box').style, 'transform: translateX(500px);')
+        //     mainSleep(3000);
+        // }, 1000);
+            
+
+        // 下面代码： 500ms 后更新UI。  
+        setTimeout( _ => {
+            $('.box').style.transform = 'translateX(500px)';
+
+            
+
+
+            setTimeout(_ => {
+                mainSleep(9000);
+            });
+
+
+            // 确保 定时器中的回调函数被放入 宏任务队列。
+            mainSleep(200);
+        }, 500);
+    </script>
+    
+</body>
+</html>

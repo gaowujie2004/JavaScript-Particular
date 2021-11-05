@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+        </style>
+        <title>ajax 异常处理</title>
+    </head>
+    <body>
+        <style></style>
+        <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+        <script>
+            axios.interceptors.response.use((res) => {
+                console.info(
+                    `%c🇨🇳拦截器 响应`,
+                    "font-size:25px;color:deeppink;",
+                    res
+                );
+                return res;
+            });
+            axios.defaults.timeout = 100;
+
+            axios
+                .get("https://www.baidu.com")
+                .then((res) => {
+                    console.info(
+                        `%c🇨🇳OK`,
+                        "font-size:25px;color:deeppink;",
+                        res
+                    );
+                })
+                .catch((err) => {
+                    console.info(
+                        `%c🇨🇳Error`,
+                        "font-size:25px;color:deeppink;",
+                        err
+                    );
+                });
+        </script>
+    </body>
+</html>

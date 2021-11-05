@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+</style>
+<title> debug test WEB应用程序 --</title>
+</head>
+<body>
+    <style>
+        
+    </style>
+    <div>
+        GaoWuJie html
+    </div>
+
+    <script>
+
+class Person {
+        constructor(firstName, lastName, age) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.age = age;
+            let test = 11;
+        }
+
+        getFullName() {
+            const name = this.firstName + this.lastName;
+            return name;
+        }
+
+        say() {
+            const name = this.getFullName();
+            const text = name + ':' + this.age;
+            return text;
+        }
+
+
+
+    }
+
+    let p1 = new Person('Gao', 'WuJie', 22);
+    p1.getFullName();
+    console.log(1111)
+    console.log(p1.say());
+
+    </script>
+</body>
+</html>

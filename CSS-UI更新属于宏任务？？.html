@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+</style>
+<title> CSS-UI更新属于宏任务？？.html </title>
+</head>
+<body>
+    <style>
+        @keyframes move {
+            25% {
+                transform: translateX(500px);
+            }
+            50% {
+                transform: translate(500px, 300px);
+            }
+            75% {
+                transform: translate(0px, 300px);
+            }
+        }
+        @keyframes margin {
+            25% {
+                margin-left: 500px;
+                margin-top: 0;
+            }
+            50% {
+                margin-top: 300px;
+                margin-left: 500px;
+            }
+            75% {
+                margin-left: 0px;
+                margin-top: 300px;
+            }
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            /* animation: move 4s; */
+            animation: margin 4s;
+        }
+
+        
+    </style>
+
+    
+    <div class="box">
+        UI更新 - 宏任务 ？？????? NO
+        CSS 先执行，那么久已经开始 就算样式 -布局 - 更新布局树了。
+    </div>
+
+    <script>
+        let $ = function(str) {
+        return document.querySelector(str)
+        }
+        let $$ = function(str) {
+            return Array.from(document.querySelectorAll(str))
+        }
+        
+        let mainSleep = function(duration=1000) {
+            let date = Date.now()
+            while (Date.now() - date <= duration) {}
+        } 
+        
+        let keys = [
+            {
+                width: '1000px',
+            },
+            // {
+            //     transform: 'translateX(100px)',
+            // }
+
+        ];
+        
+
+        setTimeout( _ => {
+            // mainSleep(2000);
+        }, 1000);
+    </script>
+    
+</body>
+</html>

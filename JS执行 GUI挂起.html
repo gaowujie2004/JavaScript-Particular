@@ -19,23 +19,25 @@
       height: 150px;
       background-color: red;
       animation: change 2s infinite alternate;
+      transform-origin: 0 0;
     }
 
     @keyframes change {
       to {
         width: 10%;
+        /* transform: scaleX(0); */
       }
     }
 
   </style>
 </head>
 <body>
-  <div class="box">
+  <div class="box obj">
     点击阻塞: 此时会执行一个函数,这个函数会阻塞主线程 2000 ms <br>
     那么, UI类任务就在  事件队列 排队. 
+    --
   </div>
   
-  <div class="height"></div>
 
   <div class="box"></div>
   <div class="box"></div>
@@ -77,8 +79,16 @@
       // 主线程 阻塞 n秒
       mainSleep(2000)
     }
-  
-    window.addEventListener('scroll', scroll1, { once:true })
+    // $('.obj').classList.add('height');
+    // window.addEventListener('scroll', scroll1);
+    // setTimeout(_ => {
+    //   mainSleep(3000);
+    // }, 500);
+
+
+    $('.obj').style.transform = "translateX(200px)";
+    mainSleep(2000);
+
 
     
 

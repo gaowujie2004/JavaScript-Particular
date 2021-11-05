@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+        </style>
+        <title>连续键 、久按鼠标</title>
+    </head>
+    <body>
+        <style></style>
+        快速按下JJ键: 第一次按下J，在一定间隔内，继续按下J。
+        <script>
+            const handleReload = () => {
+                console.info(
+                    `%c🇨🇳按下了----OK`,
+                    "font-size:25px;color:deeppink;"
+                );
+            };
+
+            // const duration = 4000;
+            // // 针对所有的 按键 - jj
+            // document.addEventListener("keypress", (e) => {
+            //     console.log(e);
+            //     document.oldKey = e.key;
+
+            //     if (e.key === "j") {
+            //         if (document.keypressCount) {
+            //             document.keypressCount++;
+            //         } else {
+            //             document.keypressCount = 1;
+            //         }
+            //         document._isContinue = true;
+
+            //         let timeId = setTimeout(() => {
+            //             document._isContinue = false;
+            //             document.keypressCount = 0;
+            //         }, duration);
+
+            //         // 第二次按下。
+            //         if (document.keypressCount === 2 && document._isContinue) {
+            //             clearTimeout(timeId);
+            //             document.keypressCount = 0;
+            //             handleReload(e);
+            //         }
+            //     }
+            // });
+
+            // 先按 key1 后按 key2
+            function continueKey(
+                key1,
+                key2,
+                duration = 1000,
+                handle = handleReload,
+                dom = document
+            ) {
+                let isContinue = false;
+                let keypressCount = 0;
+                let timeId = 0;
+
+                function resetState() {
+                    timeId = 0;
+                    keypressCount = 0;
+                    isContinue = false;
+                }
+
+                console.info(`%c🇨🇳开启。`, "font-size:25px;color:deeppink;");
+
+                dom.addEventListener(
+                    "keyup",
+                    (ev) => {
+                        if (ev.key !== key1 && ev.key !== key2) {
+                            return;
+                        }
+
+                        // 为什么要用这种方式 ？ 如果用 key判断，那要是 两个 key 一样呢 。
+                        if (keypressCount === 0) {
+                            if (ev.key !== key1) return;
+
+                            isContinue = true;
+                            keypressCount++;
+
+                            timeId = setTimeout(() => {
+                                isContinue = false;
+                                keypressCount = 0;
+                            }, duration);
+                        } else if (keypressCount === 1 && isContinue) {
+                            if (ev.key !== key2) return;
+
+                            clearInterval(timeId);
+                            keypressCount = 0;
+                            isContinue = false;
+
+                            handle(ev);
+                        }
+                    },
+                    true
+                );
+            }
+
+            continueKey("j", "k", 3000);
+        </script>
+    </body>
+</html>
