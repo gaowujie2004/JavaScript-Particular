@@ -15,51 +15,17 @@
     </head>
     <body>
         <style></style>
-        快速按下JJ键: 第一次按下J，在一定间隔内，继续按下J。
+        快速按下JJ键: 第一次按下J，在一定间隔内，继续按下J。--
+
+        <input type="text" />
+
         <script>
             const handleReload = () => {
-                console.info(
-                    `%c🇨🇳按下了----OK`,
-                    "font-size:25px;color:deeppink;"
-                );
+                console.info(`%c🇨🇳按下了----OK`, 'font-size:25px;color:deeppink;');
             };
 
-            // const duration = 4000;
-            // // 针对所有的 按键 - jj
-            // document.addEventListener("keypress", (e) => {
-            //     console.log(e);
-            //     document.oldKey = e.key;
-
-            //     if (e.key === "j") {
-            //         if (document.keypressCount) {
-            //             document.keypressCount++;
-            //         } else {
-            //             document.keypressCount = 1;
-            //         }
-            //         document._isContinue = true;
-
-            //         let timeId = setTimeout(() => {
-            //             document._isContinue = false;
-            //             document.keypressCount = 0;
-            //         }, duration);
-
-            //         // 第二次按下。
-            //         if (document.keypressCount === 2 && document._isContinue) {
-            //             clearTimeout(timeId);
-            //             document.keypressCount = 0;
-            //             handleReload(e);
-            //         }
-            //     }
-            // });
-
             // 先按 key1 后按 key2
-            function continueKey(
-                key1,
-                key2,
-                duration = 1000,
-                handle = handleReload,
-                dom = document
-            ) {
+            function continueKey(key1, key2, duration = 1000, handle = handleReload, dom = document) {
                 let isContinue = false;
                 let keypressCount = 0;
                 let timeId = 0;
@@ -70,11 +36,18 @@
                     isContinue = false;
                 }
 
-                console.info(`%c🇨🇳开启。`, "font-size:25px;color:deeppink;");
+                console.info(`%c🇨🇳开启。`, 'font-size:25px;color:deeppink;');
 
                 dom.addEventListener(
-                    "keyup",
+                    'keyup',
                     (ev) => {
+                        // 判断所处 环境。
+                        if (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA') {
+                            if (ev.key === 'Escape') {
+                                ev.target.blur();
+                            }
+                            return;
+                        }
                         if (ev.key !== key1 && ev.key !== key2) {
                             return;
                         }
@@ -104,7 +77,7 @@
                 );
             }
 
-            continueKey("j", "k", 3000);
+            continueKey('j', 'k', 250);
         </script>
     </body>
 </html>
