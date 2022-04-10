@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event passive property touchMove 事件</title>
+    <style>
+      main {
+        background: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202010%2F26%2F20201026073157_add50.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1652176692&t=7b21cf0c10a17cab9ec941b9123360fb');
+        width: 500px;
+        height: 2000px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="add1">add - 取消默认行为</button>
+    <button id="remove1">remove - 取消默认行为</button> <br /><br /><br />
+
+    <button id="add2">add - 不取消默认行为，但阻塞</button>
+    <button id="remove2">remove - 不取消默认行为，但阻塞</button> <br /><br /><br />
+
+    <button id="add3">add -passive：true，但阻塞</button>
+    <button id="remove3">remove - passive：true，但阻塞</button> <br /><br /><br />
+    <p>
+      scroll 不支持取消默认行为，<br />
+      mousewheel 可以取消默认行为
+    </p>
+
+    <p>touchMove、touchStart、touchEnd，支持取消默认行为</p>
+
+    <p>scroll事件的默认行为：合成滚动更新，在合成器线程执行所有的任务，样式计算、合成、等任务</p>
+
+    <p>类似的，连续事件 mousewheel、手指缩放事件、手指滑动事件</p>
+
+    <p>因为这些事件，本身就和 UI 强关联的。</p>
+    <main id="father"></main>
+  </body>
+
+  <script>
+    let $ = function (str) {
+      return document.querySelector(str);
+    };
+    let $$ = function (str) {
+      return Array.from(document.querySelectorAll(str));
+    };
+    let mainSleep = function (duration = 1000) {
+      let date = Date.now();
+      while (Date.now() - date <= duration) {}
+    };
+
+    //************************** 这样做只会触发事件处理函数，不会让页面更新。
+    function handle1(e) {
+      // mainSleep(1000);   阻塞与不阻塞都一样，不更新滚动画面
+      console.log('touchmove handle1', e);
+      e.preventDefault();
+    }
+    $('#add1').onclick = () => {
+      document.addEventListener('touchmove', handle1, { passive: false });
+    };
+    $('#remove1').onclick = () => {
+      document.removeEventListener('touchmove', handle1, { passive: false });
+    };
+
+    // document.addEventListener('touchmove', handle1, { passive: false });
+
+    //************************** 通知合成器是阻塞类型的
+    function handle2(e) {
+      // 每一帧的滚动更新，都会有 150ms 的延迟，丢帧。
+      // 只有「事件处理函数」执行了（判断是否调用preventDefault）才知道需不需要更新UI。
+      mainSleep(150);
+      console.log('touchmove handle2', e);
+    }
+    $('#add2').onclick = () => {
+      document.addEventListener('touchmove', handle2, { passive: false });
+    };
+    $('#remove2').onclick = () => {
+      document.removeEventListener('touchmove', handle2, { passive: false });
+    };
+
+    //************************** 通知合成器是阻塞类型的
+    function handle3(e) {
+      // 并行执行：
+      // 1、通知「合成器」更新
+      // 2、主线程执行「事件处理函数」
+
+      mainSleep(50);
+      console.log('touchmove handle3 ', e);
+      e.preventDefault();
+      // 浏览器发出警告， passive: true 时，不可调用 preventDefault，即便调用了也没有效果。
+    }
+    $('#add3').onclick = () => {
+      document.addEventListener('touchmove', handle3, { passive: true });
+    };
+    $('#remove3').onclick = () => {
+      document.removeEventListener('touchmove', handle3, { passive: true });
+    };
+  </script>
+</html>
