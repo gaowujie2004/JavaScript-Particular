@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Main</title>
+    <style>
+      @keyframes move {
+        to {
+          width: 900px;
+          height: 900px;
+        }
+      }
+      .test {
+        width: 50px;
+        height: 50px;
+        background-color: royalblue;
+        animation: move 5s;
+      }
+    </style>
+  </head>
+  <body>
+    <button>点击</button>
+    <div class="test"></div>
+    <script>
+      requestAnimationFrame(function rAf_init() {
+        requestAnimationFrame(function rAf_one() {
+          requestAnimationFrame(function rAf_two() {
+            requestAnimationFrame(function rAf_three() {});
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

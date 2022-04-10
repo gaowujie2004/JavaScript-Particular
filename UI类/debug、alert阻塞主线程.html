@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>全方位</title>
+  </head>
+  <body>
+    <style>
+      @keyframes move {
+        100% {
+          /* transform: scale(4); */
+          width: 900px;
+          height: 900px;
+        }
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        /* transition: all 1s; */
+        transform-origin: 0 0;
+        animation: move 4s linear;
+        /* transition: width 5s; */
+        /* transform-origin: 0 0; */
+        /* will-change: transform; */
+      }
+      .change {
+        width: 500px;
+        height: 500px;
+        /* background-color: skyblue; */
+
+        /* transform: scale(15); */
+        /* will-change: none; */
+      }
+    </style>
+
+    <div class="box"></div>
+    <div class="box2"></div>
+
+    debuger 不会影响到 主线程。
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let longeComputed = () => {
+        for (var i = 0; i < 10000; i++) {
+          console.log(i);
+        }
+      };
+
+      let getComputedStyle = () => {
+        return window.getComputedStyle($('.box')).width;
+      };
+
+      const UIPriorityUP = mainSleep;
+      const range = (end = 5) => {
+        return parseInt(Math.random() * 5 + 1);
+      };
+
+      let box = $('.box');
+
+      setTimeout(function WaiWei() {
+        alert();
+        // debugger;
+      }, 500);
+
+      //   setTimeout(function WaiWei() {
+      //     box.style.width = '1000px';
+      //     console.log(getComputedStyle(box));
+      //     mainSleep(2000);
+      //   }, 1000);
+    </script>
+  </body>
+</html>

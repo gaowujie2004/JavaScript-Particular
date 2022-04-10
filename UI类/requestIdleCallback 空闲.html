@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>全方位</title>
+  </head>
+  <body>
+    <style>
+      @keyframes move {
+        100% {
+          width: 900px;
+          height: 900px;
+        }
+      }
+      .box {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+        /* animation: move 4s; */
+      }
+    </style>
+
+    <div class="box"></div>
+    <div class="box2"></div>
+    <input type="text" />
+    <p>我是文本，可以被选中，那么 UI 将更新。NO</p>
+    <button>点击我</button>
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let prevTime = Date.now();
+      let interval = 0;
+
+      function Idle(obj) {
+        // console.log('--Idle ', obj.timeRemaining(), obj.didTimeout);
+        currentTimePoint = Date.now();
+
+        interval = Date.now() - prevTime;
+        prevTime = Date.now();
+
+        if (interval <= 17) {
+          console.log('正常间隔', interval);
+        } else {
+          // 即没有 UI 更新
+          // 想输入框获得焦点，是有默认的 UI改变的，这时候就不是空闲了。
+          // console.info(`%c🇨🇳空闲间隔`, 'font-size:25px;color:deeppink;', interval);
+        }
+
+        // if (performance.now() < 4500) {
+        requestIdleCallback(Idle);
+        // }
+      }
+
+      setTimeout(function GWJ() {
+        requestIdleCallback(Idle, {
+          timeout: 400,
+        });
+      }, 500);
+
+      $('button').onclick = function () {
+        console.log('--哈哈哈哈');
+        $('.box').style.background = 'red';
+      };
+
+      /**==================================
+       * 1、 定时器执行
+       * 2、微任务
+       * 3、idle
+       *  **/
+    </script>
+  </body>
+</html>

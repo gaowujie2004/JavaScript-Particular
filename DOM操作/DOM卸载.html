@@ -14,7 +14,13 @@
     <title> </title>
   </head>
   <body>
-    <input type="text" />
+    <div class="father">
+      <div class="son">
+        <div class="input">
+          <input type="text" />
+        </div>
+      </div>
+    </div>
     <style></style>
     <script>
       let $ = function (str) {
@@ -28,9 +34,8 @@
         while (Date.now() - date <= duration) {}
       };
 
+      $('.father').remove();
       console.log('--获取', document.querySelector('input'));
-
-      $('input').remove();
     </script>
   </body>
 </html>

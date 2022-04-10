@@ -15,17 +15,36 @@
   </head>
   <body>
     <style></style>
+    <scriptx>
+      (async () => { xxxxx()(); })(); document.addEventListener('click', (ev) => { testError(); }); setInterval((_) => { console.info(`%c🇨🇳KK`, 'font-size:25px;color:deeppink;', '定时器');
+      xxxxxxxxxxxxxx()()(); }, 2000); xxxxx()()()(); console.log('在浏览器中，这会代码会不会执行？'); function testError() { console.log('Click'); a()()(); }
+    </scriptx>
     <script>
-      document.addEventListener('click', (ev) => {
-        xxxxx();
-        console.log(ev);
-      });
+      console.log('okok');
+      function A() {
+        console.log('A start');
+        B();
+        console.log('A end');
+      }
 
-      setInterval((_) => {
-        console.info(`%c🇨🇳KK`, 'font-size:25px;color:deeppink;', '定时器');
-      }, 4000);
+      function B() {
+        console.log('BB start');
+        C();
+        console.log('BB end');
+      }
 
-      xxxxxx()();
+      function C() {
+        console.log('CCCC start');
+        D();
+        console.log('CCCC end');
+      }
+
+      function D() {
+        console.log('DDDDDDDDD');
+        xxx();
+      }
+
+      A();
     </script>
   </body>
 </html>

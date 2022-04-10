@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>UI更新属于宏任务</title>
+  </head>
+  <body>
+    <style>
+      .box {
+        width: 20px;
+        height: 100px;
+        background-color: pink;
+        /* transition: all 5s; */
+      }
+      .change {
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+
+    <button id="button">Click</button>
+    <div class="box"></div>
+    <div class="box2"></div>
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let getComputedStyle = () => {
+        return window.getComputedStyle($('.box')).width;
+      };
+      let box = $('.box');
+
+      button.onclick = function WaiWei() {
+        box.classList.add('change');
+        requestAnimationFrame(function rAf_init() {
+          requestAnimationFrame(function rAf_main() {
+            console.log(getComputedStyle(box));
+            mainSleep(3000);
+          });
+        });
+      };
+    </script>
+  </body>
+</html>

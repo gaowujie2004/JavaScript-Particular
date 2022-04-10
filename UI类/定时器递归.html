@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>全方位</title>
+  </head>
+  <body>
+    <style>
+      @keyframes move {
+        100% {
+          width: 900px;
+        }
+      }
+      .box {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+        /* animation: move 4s; */
+      }
+
+      .box2 {
+        margin-top: 20px;
+        width: 50px;
+        height: 50px;
+        animation: move 4s;
+        background-color: skyblue;
+      }
+    </style>
+
+    <div class="box"></div>
+
+    <!-- <div class="box2"></div> -->
+    定时器的嵌套最小 间隔是 4ms
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      const boxDiv = $('.box');
+
+      const messageChannel = new MessageChannel();
+      const port1 = messageChannel.port1;
+      const port2 = messageChannel.port2;
+
+      port1.onmessage = function Message() {
+        console.log('---- port1 收到消息');
+        mainSleep(3);
+      };
+
+      let setTimePrevTime = performance.now();
+      function GaoWuJie() {
+        console.log('--定时器间隔', performance.now() - setTimePrevTime);
+        setTimePrevTime = performance.now();
+        setTimeout(GaoWuJie, 0);
+      }
+      // setTimeout(GaoWuJie, 0);
+
+      document.onclick = function () {
+        // port2.postMessage(null);
+        setTimeout(function SetTime() {
+          console.log('--定时器');
+        }, 0);
+        Promise.resolve().then(function WeiWe() {
+          console.log('--微任务');
+          mainSleep(2);
+        });
+        boxDiv.style.cssText = 'width:500px; height: 500px';
+      };
+
+      // function rAf_main(time) {
+      //   requestAnimationFrame(rAf_main);
+      // }
+
+      // requestAnimationFrame(function WaiWei() {
+      //   rAf_main();
+      // });
+    </script>
+  </body>
+</html>

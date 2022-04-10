@@ -1,0 +1,27 @@
+<html>
+  <head> </head>
+  <body>
+    <style>
+      div {
+        width: 500px;
+        height: 500px;
+        background-color: pink;
+      }
+    </style>
+    <div></div>
+
+    <script>
+      document.onclick = function () {
+        console.log('hhhhhhhh');
+      };
+
+      function perf_observer(list, observer) {
+        // Process the "measure" event
+        // 处理 "measure" 事件
+        console.log('----', list.getEntries());
+      }
+      var observer2 = new PerformanceObserver(perf_observer);
+      observer2.observe({ entryTypes: ['event'] });
+    </script>
+  </body>
+</html>
