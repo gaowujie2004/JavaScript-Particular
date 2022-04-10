@@ -32,13 +32,12 @@
         while (Date.now() - date <= duration) {}
       };
 
+      Promise.resolve().then(() => {
+        console.log('kan kan:', document.querySelector('div').innerHTML);
+      });
       let div = document.createElement('div');
       div.innerHTML = '哈哈哈哈';
       document.body.appendChild(div); // 立即的. 只不过 UI任务不是
-
-      console.log(document.body.innerHTML);
-
-      mainSleep(1000);
     </script>
   </body>
 </html>
