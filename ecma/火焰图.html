@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>调用栈图</title>
+  </head>
+  <body>
+    <style></style>
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      function father1() {
+        console.log('f -111');
+        son111();
+        son222();
+        mainSleep(10);
+      }
+
+      function father2() {
+        console.log('f -222');
+        son222();
+        son111();
+        mainSleep(10);
+      }
+
+      function son111() {
+        mainSleep(10);
+      }
+
+      function son222() {
+        mainSleep(10);
+      }
+
+      father1();
+      father2();
+    </script>
+  </body>
+</html>
