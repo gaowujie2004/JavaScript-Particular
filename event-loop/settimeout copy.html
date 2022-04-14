@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setTimeout event-loop</title>
+  </head>
+  <body>
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      setTimeout(() => {
+        console.log(111);
+      }, 0);
+
+      setTimeout(() => {
+        console.log(111);
+      }, 0);
+      setTimeout(() => {
+        console.log(111);
+      }, 0);
+
+      const msg = new MessageChannel();
+      msg.port2.onmessage = function MSG() {
+        console.log('MSG');
+      };
+
+      msg.port1.postMessage(null);
+      msg.port1.postMessage(null);
+      msg.port1.postMessage(null);
+
+      Promise.resolve().then(() => {
+        console.log('promise');
+      });
+      Promise.resolve().then(() => {
+        console.log('promise');
+      });
+      Promise.resolve().then(() => {
+        console.log('promise');
+      });
+      Promise.resolve().then(() => {
+        console.log('promise');
+      });
+
+      mainSleep(50);
+    </script>
+  </body>
+</html>

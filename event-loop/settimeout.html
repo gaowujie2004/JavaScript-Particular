@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setTimeout event-loop</title>
+  </head>
+  <body>
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          //   console.log(111);
+          mainSleep(50);
+        }, 100);
+      }
+
+      console.time('two setTimeout');
+      console.log('--开始', performance.now());
+      setTimeout(() => {
+        console.timeEnd('two setTimeout');
+        console.log('--结束', performance.now());
+
+        console.log('循环外部 的定时器');
+      }, 120);
+    </script>
+  </body>
+</html>
