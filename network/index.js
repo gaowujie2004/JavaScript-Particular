@@ -5,42 +5,41 @@
 axios.defaults.timeout = 10000;
 // axios.defaults.validateStatus = (statue) => true;
 
-axios.interceptors.request.use(
-  (config) => {
-    // request - axios 封装过的请求对象
-    console.info(`%c🇨🇳请求拦截器OK`, 'font-size:25px;color:deeppink;', config);
-    return config;
-  },
-  (error) => {
-    console.info(`%c🇨🇳请求拦截器 - error`, 'font-size:25px;color:deeppink;', error);
-    return error;
-  }
-);
+// axios.interceptors.request.use(
+//   (config) => {
+//     // request - axios 封装过的请求对象
+//     console.info(`%c🇨🇳请求拦截器OK`, 'font-size:25px;color:deeppink;', config);
+//     return config;
+//   },
+//   (error) => {
+//     console.info(`%c🇨🇳请求拦截器 - error`, 'font-size:25px;color:deeppink;', error);
+//     return error;
+//   }
+// );
 
-axios.interceptors.response.use(
-  (response) => {
-    console.info('%c🇨🇳响应拦截器OK', 'font-size:25px;color:deeppink;', response);
-    return Promise.resolve(response);
-  },
-  (error) => {
-    console.info('%c🇨🇳响应拦截器--- error', 'font-size:25px;color:deeppink;', error);
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.response.use(
+//   (response) => {
+//     console.info('%c🇨🇳响应拦截器OK', 'font-size:25px;color:deeppink;', response);
+//     return Promise.resolve(response);
+//   },
+//   (error) => {
+//     console.info('%c🇨🇳响应拦截器--- error', 'font-size:25px;color:deeppink;', error);
+//     return Promise.reject(error);
+//   }
+// );
 
 window.goAxios = function () {
   let cancelToken = axios.CancelToken;
   let cancel;
 
   axios
-    .get('/xxxxxx', {
+    .get('/', {
       cancelToken: new cancelToken((c) => {
         cancel = c;
       }),
     })
     .then((res) => {
       console.log(res, 'get.then');
-      X();
     })
     .catch((err) => console.error('get.catch--', err));
 
@@ -78,6 +77,11 @@ window.goAjax = function () {
     console.log(`readyStateChange: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
   };
 
+  // 在 onerror、ontimeout、onabort 后面（如果有的话）
+  xhr.onloadend = function (ev) {
+    console.log(`onloadend: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
+  };
+
   xhr.open('get', '/');
   console.log('--open 方法调用', Date.now());
 
@@ -93,7 +97,7 @@ window.goAjax = function () {
   };
 
   xhr.onerror = (err) => {
-    // 什么时候算是 error ？根据下面的定义 CORS 是浏览器的限制，应用层那就不报错。
+    // 什么时候算是 error ？网络断网，CORS，远程服务器无法链接等
     // 如果是远程IP没有开启端口的话，那就 ERROR
     // 请注意只有在网络层级出现错误时才会调用此函数。如果错误只出现在应用层（比如发送一个HTTP的错误码），这个方法将不会被调用。
     // https://developer.mozilla.org/zh-CN/docs/conflicting/Web/API/XMLHttpRequest/error_event
