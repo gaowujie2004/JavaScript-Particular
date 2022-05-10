@@ -39,12 +39,12 @@ window.goAxios = function () {
       }),
     })
     .then((res) => {
-      X();
       console.log(res, 'get.then');
+      X();
     })
     .catch((err) => console.error('get.catch--', err));
 
-  cancel();
+  // cancel();
 };
 
 window.goAjax = function () {
@@ -72,12 +72,13 @@ window.goAjax = function () {
   // 2: 接收到响应头  —— 1 和 2的时间差可以得到 TTFB
   // 3: 响应体正在加载，会持续触发 xhr.readyState === 4
   // 4: 响应结束，无论本次 HTTP 请求是否有响应，都会有 4 状态，其他状态可能没有， 2和4的时间差可以得到下载时间
-  // 中断、超时、error、响应真的结束了，这些都会触发 onreadystatechange 事件，而且 xhr.readyState === 4
+  // todo:中断、超时、error、响应正常被接收到，这些都会触发 onreadystatechange 事件，而且 xhr.readyState === 4
+  // todo: xhr.status HTTP 状态码，如果出现 error、abort 等情况 xhr.status ===0;
   xhr.onreadystatechange = (ev) => {
     console.log(`readyStateChange: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
   };
 
-  xhr.open('get', 'http://127.0.0.1:7758/');
+  xhr.open('get', '/');
   console.log('--open 方法调用', Date.now());
 
   xhr.onload = function (ev) {
