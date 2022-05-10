@@ -67,30 +67,50 @@ window.goAjax = function () {
   xhr.timeout = 10000;
   window.xhr = xhr;
 
-  xhr.open('get', '/');
-
-  xhr.onload = function (ev) {
-    console.log('onload' + new Date().toLocaleTimeString(), ReadyStateText[xhr.readyState]);
-  };
-  console.log('--open 方法调用', Date.now());
-  xhr.onloadstart = function (ev) {
-    console.log('onloadStart' + new Date().toLocaleTimeString(), ReadyStateText[xhr.readyState], Date.now());
-  };
-
+  // 0: 初始化，即new XHR之后
+  // 1: open 方法调用
+  // 2: 接收到响应头  —— 1 和 2的时间差可以得到 TTFB
+  // 3: 响应体正在加载，会持续触发 xhr.readyState === 4
+  // 4: 响应结束，无论本次 HTTP 请求是否有响应，都会有 4 状态，其他状态可能没有， 2和4的时间差可以得到下载时间
+  // 中断、超时、error、响应真的结束了，这些都会触发 onreadystatechange 事件，而且 xhr.readyState === 4
   xhr.onreadystatechange = (ev) => {
     console.log(`readyStateChange: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
   };
 
+  xhr.open('get', 'http://127.0.0.1:7758/');
+  console.log('--open 方法调用', Date.now());
+
+  xhr.onload = function (ev) {
+    // 响应结束，兼容性问题
+    // 当一个 HTTP 请求正确加载出内容后返回时调用, 响应能被正常拿到
+    console.log(`onload: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
+  };
+
+  // 请求开始，兼容性问题，Open 阶段
+  xhr.onloadstart = function (ev) {
+    console.log(`onloadStart: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
+  };
+
   xhr.onerror = (err) => {
-    console.error('ERROR ---:', err, navigator.onLine);
+    // 什么时候算是 error ？根据下面的定义 CORS 是浏览器的限制，应用层那就不报错。
+    // 如果是远程IP没有开启端口的话，那就 ERROR
+    // 请注意只有在网络层级出现错误时才会调用此函数。如果错误只出现在应用层（比如发送一个HTTP的错误码），这个方法将不会被调用。
+    // https://developer.mozilla.org/zh-CN/docs/conflicting/Web/API/XMLHttpRequest/error_event
+    console.error('ERROR ---:', err, navigator.onLine, new Date().toLocaleTimeString(), Date.now());
   };
 
   xhr.ontimeout = (ev) => {
-    console.log('超时', ev);
+    // 从何时算起？
+    // 从请求发出去那一刻
+    console.log('超时', new Date().toLocaleTimeString(), Date.now());
   };
 
   xhr.onabort = (ev) => {
-    console.log('中断', ev);
+    console.log('中断', new Date().toLocaleTimeString(), Date.now());
+  };
+
+  xhr.onprogress = (ev) => {
+    console.log('接收进度', new Date().toLocaleTimeString(), Date.now(), ev);
   };
 
   xhr.send();

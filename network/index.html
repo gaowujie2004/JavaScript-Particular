@@ -16,6 +16,12 @@
   </head>
   <body>
     <style></style>
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+    </script>
     <script src="./index.js"></script>
   </body>
 </html>
