@@ -67,27 +67,31 @@ window.goAjax = function () {
   xhr.timeout = 10000;
   window.xhr = xhr;
 
-  xhr.open('get', '/高武杰?id' + Math.random());
+  xhr.open('get', '/');
 
   xhr.onload = function (ev) {
     console.log('onload' + new Date().toLocaleTimeString(), ReadyStateText[xhr.readyState]);
   };
+  console.log('--open 方法调用', Date.now());
   xhr.onloadstart = function (ev) {
-    console.log('onloadStart' + new Date().toLocaleTimeString(), ReadyStateText[xhr.readyState]);
+    console.log('onloadStart' + new Date().toLocaleTimeString(), ReadyStateText[xhr.readyState], Date.now());
   };
 
   xhr.onreadystatechange = (ev) => {
-    console.log('readyStateChange: ', ReadyStateText[xhr.readyState], new Date().toLocaleTimeString());
+    console.log(`readyStateChange: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
   };
 
   xhr.onerror = (err) => {
     console.error('ERROR ---:', err, navigator.onLine);
   };
+
   xhr.ontimeout = (ev) => {
     console.log('超时', ev);
   };
 
-  xhr.onabort;
+  xhr.onabort = (ev) => {
+    console.log('中断', ev);
+  };
 
   xhr.send();
 };
