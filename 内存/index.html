@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定时器，内存泄漏</title>
+  </head>
+  <body>
+    <p>内存泄漏高级</p>
+    <script>
+      let fn = (() => {
+        // 这个对象的回收情况
+        var __obj__ = {
+          name: 'gaowujie',
+          age: 23,
+          list: ['GaoWuJie'],
+        };
+
+        console.log('jj');
+
+        return () => {
+          function setCallback() {
+            console.log('--obj', __obj__);
+          }
+          //   console.dir(setCallback);
+          return setTimeout(setCallback, 2000000000);
+        };
+      })();
+
+      let timerId = fn();
+
+      document.onclick = () => {
+        console.log('清除了');
+        clearTimeout(timerId);
+        fn = null;
+
+        // todo:
+        // 定时器和fn 函数都要清除才可以。
+      };
+    </script>
+  </body>
+</html>
