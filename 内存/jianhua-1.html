@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>深刻理解 -- 简化版</title>
+  </head>
+  <body>
+    <p>内存泄漏高级</p>
+    <p>简单点，定时器引用</p>
+    <script>
+      let request = { data: '有点不理解' };
+
+      document.onclick = function () {
+        console.log('--点击');
+
+        const myRequest = request;
+        const response = {
+          request: request, // 先获取 request 的值（引用），然后再去 request = null
+          headers: {},
+          config: {},
+        };
+
+        request = null;
+
+        console.log('--request', request);
+        console.log('--myRequest', myRequest);
+        console.log('--response', response);
+      };
+    </script>
+  </body>
+</html>

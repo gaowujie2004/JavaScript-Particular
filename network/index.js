@@ -38,10 +38,10 @@ window.goAxios = function () {
         cancel = c;
       }),
     })
-    .then((res) => {
-      console.log(res, 'get.then');
+    .then((response) => {
+      console.log(response.data, 'get.then');
     })
-    .catch((err) => console.error('get.catch--', err));
+    .catch((err) => console.error('get.catch--', String(err)));
 
   // cancel();
 };
@@ -128,14 +128,14 @@ let imgObj = new Image();
  * 1、响应拦截器失败时，只针对timeout、NetWork Error 或者 状态码 > 400 error
  */
 
-var CancelToken = axios.CancelToken;
-var source = CancelToken.source();
+// var CancelToken = axios.CancelToken;
+// var source = CancelToken.source();
 
-axios
-  .get('http://127.0.0.1/', {
-    cancelToken: source.token,
-  })
-  .then((v) => (val = v))
-  .catch((err) => {
-    res = err;
-  });
+// axios
+//   .get('http://127.0.0.1/', {
+//     cancelToken: source.token,
+//   })
+//   .then((v) => (val = v))
+//   .catch((err) => {
+//     res = err;
+//   });

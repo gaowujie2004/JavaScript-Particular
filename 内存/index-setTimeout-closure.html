@@ -8,20 +8,28 @@
   </head>
   <body>
     <p>内存泄漏高级</p>
+
     <script>
+      function __Person__() {
+        this.uname = 'GaoWuJie';
+        this.age = 23;
+        this.loves = ['GaoWuJie', 'QinBeiLie'];
+      }
+
       let fn = (() => {
         // 这个对象的回收情况
-        var __obj__ = {
-          name: 'gaowujie',
-          age: 23,
-          list: ['GaoWuJie'],
-        };
+        var __obj__ = new __Person__();
 
-        console.log('jj');
+        console.log('函数执行');
 
         return () => {
+          window.testClose = function testClose() {
+            /**================================== 这叫手动释放 **/
+            __obj__ = null;
+          };
+
           function setCallback() {
-            console.log('--obj', __obj__);
+            console.log('--obj', JSON.stringify(__obj__));
           }
           //   console.dir(setCallback);
           return setTimeout(setCallback, 2000000000);
@@ -32,11 +40,14 @@
 
       document.onclick = () => {
         console.log('清除了');
+
+        /**================================== 这些是让垃圾回收器释放 **/
         clearTimeout(timerId);
         fn = null;
 
         // todo:
         // 定时器和fn 函数都要清除才可以。
+        // testClose 要执行或者 window.testClose = null;
       };
     </script>
   </body>

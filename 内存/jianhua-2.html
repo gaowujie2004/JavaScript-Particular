@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>深刻理解 -- 简化版同步</title>
+  </head>
+  <body>
+    <p>内存泄漏高级</p>
+    <p>简单点，定时器引用</p>
+    <script>
+      let request = { data: '有点不理解' };
+
+      // func 中， request 是在生成时就进入 func 的作用域链了，
+      // 但是 request = null。
+      function func() {
+        console.log('--点击');
+
+        const myRequest = request;
+        const response = {
+          request: request,
+          headers: {},
+          config: {},
+        };
+
+        console.log('--request', request);
+        console.log('--myRequest', myRequest);
+        console.log('--response', response);
+      }
+      document.onclick = func;
+      console.dir(func);
+      debugger;
+
+      // 先修改了 request 的值为 null，然后在 func 去获取 request 的值（null）
+      request = null;
+    </script>
+  </body>
+</html>

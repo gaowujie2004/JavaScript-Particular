@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定时器，内存泄漏</title>
+  </head>
+  <body>
+    <p>内存泄漏高级</p>
+    <p>简单点，定时器引用</p>
+    <script>
+      let timerId;
+      function test() {
+        // 正常情况下，test 执行完 __obj__ 就会被回收
+        let __obj__ = {
+          name: 'gaowujie2004',
+          likeList: ['gaowujie', 'qinbeilei'],
+        };
+
+        // 但是现在，__obj__ 不会被释放，除非定时器清除。
+        timerId = setTimeout(() => {
+          console.log(__obj__.name);
+        }, 20000000);
+      }
+
+      test();
+
+      document.onclick = () => {
+        console.log('清除了', timerId);
+        clearTimeout(timerId);
+        // todo: 清除掉定时器就可以释放 __obj__ 了
+      };
+    </script>
+  </body>
+</html>
