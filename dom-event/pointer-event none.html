@@ -1,71 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-</style>
-<title> pointer-events: none </title>
-</head>
-<body>
-  <div class="box1">
-    <b>.box1</b>
-    位于 .box2 下层
-  </div>
-  <div class="box2">
-    <b>.box2</b>
-    pointer-events　CSS属性具有继承性．
-  </div>
-  <style>
-    .box1 {
-      width: 30vw;
-      height: 30vw;
-      background-color: skyblue;
- 
-    }
-    .box2 {
-      width: 30vw;
-      height: 30vw;
-      background-color: pink;
-      margin-top: -15vw;
-      margin-left: 100px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>pointer-events: none</title>
+  </head>
+  <body>
+    <div class="box1">
+      <b>.box1</b>
+      位于 .box2 下层
+    </div>
+    <div class="box2">
+      <b>.box2</b>
+      pointer-events　CSS属性具有继承性．
+    </div>
+    <style>
+      .box1 {
+        width: 30vw;
+        height: 30vw;
+        background-color: skyblue;
+      }
+      .box2 {
+        width: 30vw;
+        height: 30vw;
+        background-color: pink;
+        margin-top: -15vw;
+        margin-left: 100px;
 
-      pointer-events: none;
-    }
-  </style>
-  <script>
-    let $ = function(str) {
-      return document.querySelector(str)
-    }
-    let $$ = function(str) {
-        return Array.from(document.querySelectorAll(str))
-    }
-    let mainSleep = function(duration=1000) {
-        let date = Date.now()
+        pointer-events: none;
+      }
+    </style>
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
         while (Date.now() - date <= duration) {}
-    }
-    
-    // 
-    $('.box1').addEventListener('click', e => {
-      console.log(e.target, '.box1 在下面')
-    })
+      };
 
-    // .box2 添加了 pointer-events: none; 可以穿透了.
-    // 即点击 .box2 能触发 .box1 了, 之前是 .box2 覆盖了.box1
-    $('.box2').addEventListener('click', e => {
-      console.log(e.target, '.box2 z轴最上')
-    })
+      // box1 下层
+      $('.box1').addEventListener('click', (e) => {
+        console.log(e.target, '.box1 在下面');
+      });
 
-    $('body').addEventListener('click', function(e) {
-      console.log('body', e.target)
-    })
+      // box2 上层
+      // .box2 添加了 pointer-events: none; 可以穿透了.
+      // 即点击 .box2 能触发 .box1 了, 之前是 .box2 覆盖了.box1
+      $('.box2').addEventListener('click', (e) => {
+        console.log(e.target, '.box2 z轴最上');
+      });
 
-  </script>
-</body>
+      $('body').addEventListener('click', function (e) {
+        console.log('body', e.target);
+      });
+    </script>
+  </body>
 </html>

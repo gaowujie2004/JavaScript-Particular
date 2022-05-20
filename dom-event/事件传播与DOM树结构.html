@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event 共享</title>
+  </head>
+  <body>
+    <main id="father">
+      <div id="son">
+        <button>Click Me</button>
+      </div>
+    </main>
+  </body>
+  事件的路径，和DOM树结构有很大关联，即便子元素在视觉上脱落父元素，但触发子元素，依然会途径子元素。
+  <style>
+    main {
+      border: 2px solid red;
+      width: 50vw;
+      height: 50vw;
+
+      display: flex;
+    }
+    #son {
+      width: 50%;
+      height: 50%;
+      margin: auto;
+      background-color: pink;
+    }
+    button {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      padding: 35px;
+    }
+
+    img {
+      width: 100vw;
+      display: block;
+    }
+  </style>
+
+  <script>
+    let $ = function (str) {
+      return document.querySelector(str);
+    };
+
+    // 冒泡
+    $('main').addEventListener('click', (e) => {
+      console.log('main', e);
+    });
+
+    $('#son').addEventListener('click', (e) => {
+      console.log('son', e);
+    });
+
+    $('button').addEventListener('click', (e) => {
+      console.log('button', e);
+    });
+
+    // 捕获阶段
+    $('main').addEventListener(
+      'click',
+      (e) => {
+        console.log('main 捕获');
+      },
+      true
+      // 捕获
+    );
+  </script>
+</html>
