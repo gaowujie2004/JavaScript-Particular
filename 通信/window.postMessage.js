@@ -7,5 +7,5 @@ window.onmessage = (ev) => {
 var son_9090;
 
 document.querySelector('button').onclick = () => {
-  window.postMessage('my is 8080', 'http://127.0.0.1:8080/');
+  son_9090 = window.open('http://127.0.0.1:9090/window.postMessage-2.html');
 };
