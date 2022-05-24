@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>img 标签的秘密</title>
+  </head>
+  <body>
+    <img src="https://tools.jiyik.com/demo_source/demo2.jpeg" />
+    <script>
+      const isSupportWebp = () =>
+        new Promise((resolve, reject) => {
+          let $img = new Image();
+          $img.src = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAkA4JaQAA3AA/vucwAA=';
+
+          $img.onload = () => {
+            resolve(!!$img.naturalWidth);
+            $img = null;
+          };
+
+          $img.onerror = () => {
+            resolve(false);
+            $img = null;
+          };
+        });
+
+      isSupportWebp().then((val) => {
+        console.log(val);
+      });
+    </script>
+  </body>
+</html>
