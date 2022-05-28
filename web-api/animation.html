@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>web animation</title>
+  </head>
+  <body>
+    <div class="f1"></div>
+    <style>
+      .f1 {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+      }
+    </style>
+
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let f1 = document.querySelector('.f1');
+      document.onclick = function () {
+        console.log('ffff');
+
+        f1.animate(
+          [
+            {
+              transform: 'translateX(0px)',
+              // marginLeft: '0px',
+            },
+            {
+              transform: 'translateX(200px)',
+              // marginLeft: '200px',
+            },
+          ],
+          { duration: 3000 }
+        );
+
+        // requestAnimationFrame(() => {
+        //   requestAnimationFrame(() => {
+        //     mainSleep(3000);
+        //   });
+        // });
+      };
+    </script>
+  </body>
+</html>
