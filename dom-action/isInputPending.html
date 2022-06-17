@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @keyframes move {
+        100% {
+          width: 600px;
+          /* height: 600px; */
+          /* transform: scale(4); */
+        }
+      }
+      div {
+        width: 200px;
+        height: 8000px;
+        background-color: skyblue;
+
+        transform-origin: 0 0;
+
+        /* transform   width\height */
+      }
+
+      .div-move {
+        animation: move 5s;
+      }
+    </style>
+    <title>9090</title>
+  </head>
+  <body>
+    <input type="text" />
+
+    <div>GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</div>
+    <style></style>
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      document.onclick = function () {
+        console.log(222);
+
+        if (!$('div').classList.contains('div-move')) {
+          $('div').classList.add('div-move');
+        }
+
+        console.log('isInputPending', navigator.scheduling.isInputPending());
+        // mainSleep(2000);
+      };
+
+      $('input').oninput = (e) => {
+        console.log(e.data);
+        mainSleep(200);
+
+        console.log('isInputPending', navigator.scheduling.isInputPending(['input']));
+      };
+    </script>
+  </body>
+</html>

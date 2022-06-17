@@ -14,7 +14,7 @@
     <title> </title>
   </head>
   <body>
-    <div>GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</div>
+    <input type="text" />
     <style></style>
     <script>
       let $ = function (str) {
@@ -28,9 +28,9 @@
         while (Date.now() - date <= duration) {}
       };
 
-      $('div').innerHTML = '哈哈哈';
-      // debugger // debugger 语句不会阻塞 渲染任务.  alert()  才是真正的阻塞主线程.
-      // 所以 . debugger 不下一步 还是会渲染
+      console.log('--获取', document.querySelector('input'));
+
+      $('input').remove();
     </script>
   </body>
 </html>

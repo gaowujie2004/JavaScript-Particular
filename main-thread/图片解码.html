@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        height: 2000px;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        /* animation: move 4s; */
+      }
+      @keyframes move {
+        100% {
+          width: 500px;
+          height: 500px;
+        }
+      }
+      img {
+        /* position: fixed;
+        z-index: -10;
+        left: 0;
+        top: 0; */
+      }
+    </style>
+    <div></div>
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      const img = new Image();
+      img.src = '../../public/img/cy.jpg';
+
+      img.onload = () => {
+        // 数据响应完毕，并且当前浏览器能解析此图片，此时会解析图片数据的头信息（图片宽高）
+        // 具体的图片像素数据不会去解析，插入DOM树才解析
+        console.log(img.naturalWidth, img.naturalHeight);
+      };
+
+      img.onerror = () => {
+        // 图片数据有误，或者当前浏览器不能解析此图片
+        // 只读取图片文件 头信息？
+      };
+
+      // 手动开启图片解码
+      // 默认情况是，img 插入DOM树后，才解码
+      // 并且此方法的解码计算任务，不是在渲染器主线程执行的。
+      console.time('图片解码耗时');
+      img.decode().then(() => {
+        console.timeEnd('图片解码耗时');
+      });
+
+      // 如果插入DOM后，才开始解析，那就会慢了
+
+      document.onclick = function TestClick() {
+        console.log('click');
+        document.body.append(img);
+      };
+    </script>
+  </body>
+</html>

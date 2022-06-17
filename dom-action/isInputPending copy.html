@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @keyframes move {
+        100% {
+          /* width: 600px; */
+          /* height: 600px; */
+          transform: scale(4);
+        }
+      }
+      div {
+        width: 150px;
+        height: 150px;
+        background-color: skyblue;
+
+        transform-origin: 0 0;
+
+        /* transform   width\height */
+        /* transition: 3s; */
+      }
+
+      .div-move {
+        animation: move 5s;
+      }
+    </style>
+    <title>9090</title>
+  </head>
+  <body>
+    <div>GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG</div>
+    <style></style>
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      document.onclick = function () {
+        if (!$('div').classList.contains('div-move')) {
+          $('div').classList.add('div-move');
+        }
+
+        let start = performance.now();
+
+        // 第二优先级，对用户可见，但不会阻塞用户交互。比如：渲染第二屏内容。这是默认优先级
+        // 就是如果任务队列有任务，那么优先让这个任务队列的任务先执行
+        Promise.resolve().then(() => {
+          Promise.resolve().then(() => {
+            console.log('执行业务逻辑', performance.now() - start);
+            mainSleep(1500);
+          });
+        });
+
+        // let start = performance.now();
+        // requestAnimationFrame(() => {
+        //   requestAnimationFrame(() => {
+        //     console.log('执行业务逻辑', performance.now() - start);
+        //     mainSleep(5000);
+        //   });
+        // });
+      };
+    </script>
+  </body>
+</html>

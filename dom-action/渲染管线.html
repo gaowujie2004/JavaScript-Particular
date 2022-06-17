@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @keyframes move {
+        100% {
+          width: 600px;
+          /* height: 600px; */
+          /* transform: scale(4); */
+        }
+      }
+      div {
+        width: 200px;
+        height: 200px;
+        background-color: skyblue;
+
+        transform-origin: 0 0;
+        transition: 2s linear;
+
+        /* transform   width\height */
+      }
+
+      .div-move {
+        /* animation: move 5s; */
+        /* transform: scale(3); */
+        width: 600px;
+      }
+    </style>
+    <title>9090</title>
+  </head>
+  <body>
+    <input type="text" />
+
+    <main>
+      <div>transform 第一次渲染管线都走一遍，如果是个动画或在过渡，那么以后就没有 布局、绘制</div>
+      如果是 GPU动画或过渡，那么除了第一次，以后的任务都有 合成器线程来完成。
+    </main>
+
+    <style></style>
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let div = $('div');
+      document.onclick = function TestClick() {
+        console.log(222);
+
+        // if (!$('div').classList.contains('div-move')) {
+        //   $('div').classList.add('div-move');
+        // }
+
+        if (!div.style.width) {
+          div.style.width = '800px';
+        }
+
+        mainSleep(1000);
+        // setTimeout(() => {
+        //   mainSleep(2000);
+        // }, 2);
+      };
+    </script>
+  </body>
+</html>

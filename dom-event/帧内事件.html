@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>帧内事件</title>
+    <style>
+      body {
+        height: 110vh;
+      }
+      canvas {
+        width: 500px;
+        height: 500px;
+        outline: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector('canvas');
+      canvas.width = canvas.height = 500;
+      const ctx = canvas.getContext('2d');
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let prevX, prevY;
+      canvas.addEventListener('pointermove', (event) => {
+        console.log(11);
+        const events = event.getCoalescedEvents();
+        for (let event of events) {
+          requestAnimationFrame(() => {
+            const { offsetX: x, offsetY: y } = event;
+
+            if (typeof prevX !== 'number') {
+              prevX = x;
+              prevY = y;
+              return;
+            }
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            prevX = x;
+            prevY = y;
+          });
+        }
+      });
+
+      canvas.onmouseenter = () => {
+        console.log('进入');
+        ctx.beginPath();
+      };
+      canvas.onmouseleave = () => {
+        console.log('离开');
+        ctx.closePath();
+        prevX = prevY = undefined;
+      };
+    </script>
+  </body>
+</html>
