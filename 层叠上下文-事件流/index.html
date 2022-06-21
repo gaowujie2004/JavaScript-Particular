@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>层叠上下文-事件流</title>
+  </head>
+  <body>
+    <style>
+      .context {
+        border: 1px solid red;
+        padding: 30px;
+
+        position: fixed;
+        z-index: 100;
+        left: 100px;
+      }
+      .father {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        background-color: pink;
+        width: 200px;
+        height: 200px;
+        z-index: 1;
+      }
+      .son {
+        background-color: skyblue;
+        width: 100px;
+        height: 300px;
+
+        position: absolute;
+        left: 150px;
+      }
+    </style>
+    <!-- 让其形成上下文 -->
+    <div class="context" id="context">
+      <div class="father" id="father">
+        <div class="son" id="son"></div>
+      </div>
+    </div>
+
+    <div class="test">GGG</div>
+
+    <script>
+      context.onclick = () => {
+        console.log('context -- click');
+      };
+      father.onclick = () => {
+        console.log('father -- click');
+      };
+      son.onclick = () => {
+        console.log('son -- click');
+      };
+    </script>
+  </body>
+</html>
