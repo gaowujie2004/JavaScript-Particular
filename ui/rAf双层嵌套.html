@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>简单的例子</title>
+  </head>
+  <body>
+    <style>
+      @keyframes move {
+        100% {
+          width: 900px;
+          height: 900px;
+        }
+      }
+      .box {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+        /* animation: move 4s; */
+      }
+    </style>
+
+    <div class="box"></div>
+    <div class="box2"></div>
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      document.onclick = function ONCLICK() {
+        $('.box').style.background = `#${Math.random().toString(16).slice(2, 8)}`;
+
+        let start = performance.now();
+        console.time('go');
+
+        requestAnimationFrame(function rAf_init() {
+          console.log('第一针', performance.now() - start);
+
+          requestAnimationFrame(function er() {
+            console.log('第而针', performance.now() - start);
+            console.timeEnd('go');
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
