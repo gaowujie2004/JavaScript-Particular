@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>transform-无过渡-渲染管线剖析</title>
+  </head>
+  <body>
+    <style>
+      .box {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+        transform-origin: 0 0;
+      }
+      .change {
+        transform: scale(5);
+      }
+    </style>
+
+    <div class="box">
+      <p>GaoWuJie</p>
+    </div>
+    <div class="box2"></div>
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      const div = $('.box');
+      setTimeout(() => {
+        div.classList.add('change');
+      }, 1500);
+    </script>
+  </body>
+</html>

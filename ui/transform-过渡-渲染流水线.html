@@ -11,7 +11,7 @@
         box-sizing: border-box;
       }
     </style>
-    <title>全方位</title>
+    <title>transform、过渡、渲染管线任务剖析</title>
   </head>
   <body>
     <style>
@@ -25,13 +25,11 @@
         width: 50px;
         height: 50px;
         background-color: pink;
-        /* transition: all 3s; */
         transform-origin: 0 0;
-        /* animation: move 50ms; */
+
+        transition: 4s;
       }
       .change {
-        /* width: 500px; */
-        /* height: 500px; */
         transform: scale(5);
       }
     </style>
@@ -39,7 +37,6 @@
     <div class="box">
       <p>GaoWuJie</p>
     </div>
-    <div class="box2"></div>
 
     <script>
       let $ = function (str) {
@@ -49,17 +46,10 @@
         return Array.from(document.querySelectorAll(str));
       };
 
-      let mainSleep = function (duration = 1000) {
-        let date = Date.now();
-        while (Date.now() - date <= duration) {}
-      };
-
       const div = $('.box');
-
-      document.onclick = function WaiWei() {
-        div.remove();
-        console.log('kankan', document.querySelector('.box')?.tagName);
-      };
+      setTimeout(() => {
+        div.classList.add('change');
+      }, 1500);
     </script>
   </body>
 </html>

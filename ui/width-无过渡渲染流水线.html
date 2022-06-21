@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>UI更新属于宏任务</title>
+  </head>
+  <body>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+      }
+      .move {
+        width: 900px;
+        height: 900px;
+      }
+    </style>
+
+    <div class="box">UI更新 - 宏任务 ？？????? NO 对</div>
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let div = $('.box');
+
+      setTimeout((_) => {
+        div.classList.add('move');
+      }, 1500);
+    </script>
+  </body>
+</html>
