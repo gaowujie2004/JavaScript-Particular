@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>offsetLeft</title>
+    <style>
+      #testBox {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+      }
+
+      .test {
+      }
+    </style>
+  </head>
+  <body>
+    <p>这种情况，触发强制同步布局、强制同步样式计算</p>
+    <p>注意：是同步</p>
+
+    <hr />
+    <p>为什么要强调同步？因为UI任务是异步，虽然看似是一行同步代码，但UI任务是异步的，具体原因就不阐述了</p>
+
+    <hr />
+    <div id="testBox">这是一个测试盒子</div>
+
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      /*
+       * 重排提前了，因为要计算样式 + 获取真实的几何位置（布局Layout） —— 然而这些都在
+       */
+      setTimeout(function TestClick() {
+        testBox.style.cssText = `
+          background-image: linear-gradient(175deg, deeppink 50%, pink);
+          width: 500px;
+          height: 900px;
+          margin-left: auto;
+          margin-right: auto;
+        `;
+
+        mainSleep(4);
+      }, 1000);
+    </script>
+  </body>
+</html>
