@@ -4,25 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>闭包对象共享上下文-搅屎棍2.html</title>
+    <title>eval</title>
   </head>
   <body>
     <script>
       function father() {
         const arrData = new Array(10e4).fill('*');
-        // father 函数执行，AO活动对象，arrData
-        // 向下扫描，发现有函数在引用 arrData，那就标记为不让垃圾回收器回收。
 
-        // 真是个搅屎棍
-        // son1 在创建时，把 father闭包对象添加到 son1 son2 函数的作用域链顶端
-        function son1() {
-          arrData.length;
-        }
+        eval('function ifee(){ console.log("我就输出一下代码") }; ifee()');
 
         return function son2() {
           console.log('我就是输出啊');
         };
       }
+
+      // resFn 作用域链中，同样有闭包对象
+      // Closure (father) {arrData: Array(100000), arguments: Arguments(0), ifee: ƒ}
       const resFn = father();
     </script>
   </body>
