@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定时器</title>
+  </head>
+  <body>
+    <script>
+      function test() {
+        let obj = new Array(10e5).fill({ name: 'GWJ' });
+
+        // 5000ms 后obj被GC回收
+        // 匿名函数的作用域链顶端放着闭包对象（未销毁的AO成员），里面包含 obj对象
+        setTimeout(() => {
+          console.log(obj.length);
+        }, 5000);
+      }
+      test();
+    </script>
+  </body>
+</html>
