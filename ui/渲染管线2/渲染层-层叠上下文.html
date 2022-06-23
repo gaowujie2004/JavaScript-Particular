@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>offsetLeft</title>
+    <style>
+      .testBox {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+
+        /* 先将元素提升为 合成层 */
+        /* will-change: transform; */
+      }
+
+      .absolute {
+        position: absolute;
+        left: 20px;
+        z-index: 20;
+
+        background-color: pink;
+        width: 200px;
+        height: 200px;
+      }
+
+      .fixed {
+        position: fixed;
+        left: 200px;
+        top: 20px;
+        z-index: 20;
+
+        background-color: pink;
+        width: 200px;
+        height: 200px;
+      }
+
+      .opacity {
+        opacity: 0.5;
+        background-color: pink;
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>现在</p>
+
+    <hr />
+    <div id="testBox" class="testBox">这是一个测试盒子</div>
+
+    <hr />
+    <div class="absolute">这是一个绝对另外盒子</div>
+
+    <hr />
+    <div class="fixed">这是一个固定定位盒子</div>
+
+    <div class="opacity">我是半透明的</div>
+  </body>
+</html>

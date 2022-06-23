@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>合成层改变样式-opacity</title>
+    <style>
+      .testBox {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+
+        /* 先将元素提升为 合成层 */
+        will-change: opacity;
+      }
+
+      .change {
+        /* transform: translate3d(200px, 200px, 0); */
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <p>现在</p>
+
+    <hr />
+    <div id="testBox" class="testBox">这是一个测试盒子</div>
+
+    <hr />
+    <button onclick="cleanFn()">
+      <h1>清空</h1>
+    </button>
+
+    <script>
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      function cleanFn() {
+        document.body.innerHTML = '';
+      }
+
+      /*
+       * 重排提前了，因为要计算样式 + 获取真实的几何位置（布局Layout） —— 然而这些都在
+       */
+      setTimeout(function TestClick() {
+        testBox.classList.add('change');
+      }, 1000);
+    </script>
+  </body>
+</html>
