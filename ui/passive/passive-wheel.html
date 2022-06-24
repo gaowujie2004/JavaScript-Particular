@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        height: 2000px;
+        touch-action: none;
+      }
+    </style>
+    <title>全方位</title>
+  </head>
+  <body>
+    <img src="../../../public/img/2.jpg" alt="" />
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let longeComputed = () => {
+        for (var i = 0; i < 10000; i++) {
+          console.log(i);
+        }
+      };
+
+      let getComputedStyle = () => {
+        return window.getComputedStyle($('.box')).width;
+      };
+
+      // scroll 事件无法取消默认行为
+      // wheel 事件可以被取消默认行为，但要 { passive: false }
+      window.addEventListener(
+        'wheel',
+        (ev) => {
+          // ev.preventDefault();
+          console.log(11);
+          mainSleep(100);
+        },
+        { passive: false }
+      );
+    </script>
+  </body>
+</html>

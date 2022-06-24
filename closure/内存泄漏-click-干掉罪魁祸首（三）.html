@@ -4,27 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>轮询定时器 - 内存泄漏</title>
+    <title>click - 内存泄漏-干掉罪魁祸首</title>
   </head>
   <body>
     <script>
+      GWJ.clickCount = 0;
       function GWJ() {
-        this.time = performance.now();
+        this.count = `第 ${++GWJ.clickCount} 次的数据`;
         this.name = new Array(50000).fill('GWJ2004');
       }
 
       // 全局变量是罪魁祸首
-      var theThing = null;
+      let theThing = null;
 
       function testFn() {
         console.log(1);
-        var originalThing = theThing;
 
-        // 此函数创建时，闭包对象指向 replaceThing 作用域链的AO（originThing没有被销毁）
-        // 没有引用的话 AO成员是要全部被GC的。
-        var unused = function () {
-          if (originalThing) console.log('hi');
-        };
+        // 针对当前代码而言，是这样可以做的
+        // todo: 难理解
+        // 代码块之内的变量，用完之后GC就回收，代码块之内也没有异步回调，所以 originThing 被回收
+        {
+          let originalThing = theThing;
+          // 此函数创建时，闭包对象指向 replaceThing 作用域链的AO（originThing没有被销毁）
+          // 没有引用的话 AO成员是要全部被GC的。
+          function unused() {
+            if (originalThing) console.log('hi');
+          }
+        }
 
         theThing = {
           newData: new GWJ(),
