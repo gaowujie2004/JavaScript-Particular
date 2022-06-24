@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      canvas {
+        border: 1px solid red;
+      }
+    </style>
+    <title>Canvas API - 描点连线</title>
+  </head>
+  <body>
+    <canvas width="400" height="400"></canvas>
+
+    Canvas API
+
+    <script>
+      let $ = function (str) {
+        return document.querySelector(str);
+      };
+      let $$ = function (str) {
+        return Array.from(document.querySelectorAll(str));
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let longeComputed = () => {
+        for (var i = 0; i < 10000; i++) {
+          console.log(i);
+        }
+      };
+
+      let getComputedStyle = () => {
+        return window.getComputedStyle($('.box')).width;
+      };
+
+      let box = $('.box');
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = 'pink';
+      ctx.lineTo(20, 20);
+      ctx.lineTo(40, 40);
+      ctx.lineTo(50, 50);
+      ctx.lineTo(20, 80);
+      setTimeout(function GO() {
+        ctx.stroke();
+      }, 900);
+    </script>
+  </body>
+</html>
