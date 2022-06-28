@@ -8,10 +8,10 @@
   </head>
   <body>
     <script>
-      GWJ.clickCount = 0;
-      function GWJ() {
-        this.count = `第 ${++GWJ.clickCount} 次的数据`;
-        this.name = new Array(50000).fill('GWJ2004');
+      Test.clickCount = 0;
+      function Test() {
+        this.count = `第 ${++Test.clickCount} 次的数据`;
+        this.name = new Array(50000).fill('Test2004');
       }
 
       // 全局变量是罪魁祸首
@@ -28,7 +28,7 @@
         }
 
         theThing = {
-          newData: new GWJ(),
+          newData: new Test(),
 
           // 因为 replaceThing 函数的作用域链AO成员没有销毁，所以 someMethod 函数创建时
           // 就会执行这个AO成员，俗称闭包。
