@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //箭头函数 里面的this在函数定义时候已经确定
+      let fn111;
+      function bibao() {
+        //箭头函数只定义了一次
+        if (fn111) {
+          return fn111;
+        } else {
+          fn111 = () => {
+            console.log(this);
+          };
+          return fn111;
+        }
+      }
+
+      function bibao() {
+        console.log(this);
+        return () => {
+          //箭头函数被定义多次
+          console.log(this);
+        };
+      }
+      let fn = bibao.call({ name: 'ddddd' });
+      fn();
+      let fn1 = bibao.call({ name: 'ccccc' });
+      fn1();
+    </script>
+  </body>
+</html>

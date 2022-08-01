@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件的默认行为，都有哪些方面？</title>
+    <style>
+      .f1 {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+      }
+      .f1:active {
+        background-color: skyblue;
+      }
+      .f1:hover {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    事件的默认行为，看来执行和动作相关了，mousedown 与 :active 不相关.
+    <div class="f1" id="f1" href="http://www.badu.com">BD</div>
+
+    <script>
+      f1.onclick = function (ev) {
+        console.log('mousedown');
+        ev.preventDefault();
+      };
+
+      f1.onmouseenter = function (ev) {
+        this.className = '';
+        console.log('mouseover');
+        ev.preventDefault();
+      };
+    </script>
+  </body>
+</html>

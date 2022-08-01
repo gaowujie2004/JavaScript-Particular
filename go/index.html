@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      main {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        position: fixed;
+        left: 0;
+        top: 0;
+        will-change: transform;
+      }
+      body {
+        height: 2000px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>HHHH</main>
+    <script>
+      const main = document.querySelector('main');
+      document.onscroll = (e) => {
+        requestAnimationFrame(() => {
+          main.style.transform = `translateY(${window.pageYOffset}px)`;
+        });
+      };
+    </script>
+  </body>
+</html>

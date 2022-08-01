@@ -25,7 +25,7 @@
         width: 50px;
         height: 50px;
         background-color: pink;
-        animation: move 4s;
+        /* animation: move 4s; */
       }
     </style>
 
@@ -45,19 +45,19 @@
         while (Date.now() - date <= duration) {}
       };
 
-      function rAf_main() {
-        mainSleep(2);
-        requestAnimationFrame(rAf_main);
-      }
+      document.onclick = () => {
+        document.body.innerHTML = '';
+      };
 
-      requestAnimationFrame(function WaiWei() {
-        setTimeout(function GWJ() {
-          mainSleep(2);
-        }, 0);
-        requestAnimationFrame(function rAf_init() {
-          // rAf_main();
+      setTimeout(function MyClick() {
+        console.log('timouet');
+
+        $('.box').style.width = '1000px';
+
+        requestAnimationFrame(function rAFCallback() {
+          $('.box').style.width = '200px';
         });
-      });
+      }, 1000);
     </script>
   </body>
 </html>

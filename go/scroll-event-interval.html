@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>连续性事件触发的时间间隔</title>
+    <style>
+      body {
+        height: 3000px;
+      }
+    </style>
+  </head>
+  <body>
+    旧的连续型事件触发函数，最多是1帧内触发一次。
+    <p>新的指针型事件，可再一帧内触发多次</p>
+    <script>
+      document.onclick = () => {
+        window.open('chrome://settings/content/sound');
+      };
+
+      let mainSleep = function (duration = 1000) {
+        let date = Date.now();
+        while (Date.now() - date <= duration) {}
+      };
+
+      let prevCallTime = performance.now();
+      let intervals = []; // 相邻两次事件回调函数的执行时间间隔。
+
+      // document.addEventListener(
+      //   'scroll',
+      //   (e) => {
+      //     const now = performance.now();
+      //     intervals.push(now - prevCallTime);
+
+      //     prevCallTime = now;
+      //   },
+      //   true
+      // );
+
+      document.onpointermove = (e) => {
+        const now = performance.now();
+        intervals.push(now - prevCallTime);
+        prevCallTime = now;
+
+        const events = e.getCoalescedEvents();
+        console.log(events);
+      };
+    </script>
+  </body>
+</html>
