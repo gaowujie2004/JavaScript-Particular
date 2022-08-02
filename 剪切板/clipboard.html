@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clipboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+  </head>
+  <body>
+    <button class="btn" data-clipboard-action="copy" data-clipboard-text="GaoWUJIe2004"><h1>CLICK</h1></button>
+    <script>
+      var clipboard = new ClipboardJS(document.querySelector('.btn'));
+
+      clipboard.on('success', function (e) {
+        console.log(e);
+      });
+
+      clipboard.on('error', function (e) {
+        console.log(e);
+      });
+    </script>
+  </body>
+</html>

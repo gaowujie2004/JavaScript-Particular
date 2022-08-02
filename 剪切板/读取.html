@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>读取剪切板</title>
+  </head>
+  <body>
+    <script>
+      // 创建输入框
+      var textarea = document.createElement('textarea');
+      document.body.appendChild(textarea);
+      // 隐藏此输入框
+      // textarea.style.position = 'absolute';
+      // textarea.style.clip = 'rect(0 0 0 0)';
+      // 赋值
+      textarea.value = 'hhhhhh';
+
+      // textarea.oncopy = () => {
+      //   console.log('复制了');
+      // };
+
+      // textarea.onpaste = (e) => {
+      //   console.log(e);
+      // };
+
+      document.onpaste = (e) => {
+        console.log(e);
+      };
+
+      document.onclick = () => {
+        // textarea.focus();
+
+        // console.log(document.execCommand('paste', true));
+        navigator.clipboard.read().then((ls) => {
+          console.log(ls);
+          const png = ls[0].getType('image/png');
+          console.log(png);
+        });
+      };
+    </script>
+  </body>
+</html>
