@@ -1,12 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>定时器可恢复</title>
+    <style>
+      #testBox {
+        width: 400px;
+        height: 400px;
+        background-color: deeppink;
+      }
+    </style>
   </head>
   <body>
-    <script></script>
+    <div id="testBox"></div>
+    <script>
+      function setTimeoutHelper(callback, delay) {
+        var that = this,
+          startTime = Date.now(),
+          timerId,
+          pauseStart,
+          pauseStop,
+          restart,
+          status = {
+            pause: false,
+            resume: false,
+            start: false,
+          },
+          timerUses = [];
+
+        that.stop = function () {
+          if (!status.start && !status.resume) {
+            return false;
+          }
+          status.start = false;
+          status.resume = false;
+          window.clearInterval(timerId);
+        };
+        that.pause = function () {
+          if (!status.start && !status.resume) {
+            return false;
+          }
+          status.pause = true;
+          pauseStart = Date.now();
+          that.stop();
+
+          const res = pauseStart - pauseStop;
+          if (res) {
+            timerUses.push(res % delay);
+          }
+          console.info(`%c🇨🇳倒计时用时`, 'font-size:25px;color:deeppink;', timerUses);
+        };
+
+        that.resume = function () {
+          if (!status.pause) {
+            return false;
+          }
+
+          status.pause = false;
+          status.resume = true;
+
+          pauseStop = Date.now();
+          // 开头情况
+          if (timerUses.length === 0) {
+            startTime += pauseStop - pauseStart;
+            restart = delay - (pauseStop - startTime);
+          } else {
+            // 中间情况
+            restart = delay - timerUses.reduce((memo, cur) => memo + cur, 0);
+          }
+
+          startFunc(restart);
+          console.log('继续开始,delay', restart);
+        };
+
+        var startFunc = function (restart = delay) {
+          // timerId = window.setTimeout(callback, restart);
+          myInterval(restart);
+        };
+
+        var myInterval = function (restart = delay) {
+          status.start = true;
+
+          timerId = setTimeout(() => {
+            startTime = Date.now();
+            timerUses = [];
+            callback();
+            myInterval();
+          }, restart);
+        };
+
+        startFunc();
+        return that;
+      }
+
+      function test() {
+        console.log(111);
+      }
+      const timer = setTimeoutHelper(test, 5000);
+
+      testBox.onmouseenter = () => {
+        console.log('进入');
+        timer.pause();
+      };
+
+      testBox.onmouseleave = () => {
+        console.log('--离开');
+        timer.resume();
+      };
+
+      // 移入、移出，如此循环操作，就有问题
+      // 我们想实现的是，移入定时器暂停倒计时, 移出接着计时
+      // 移入后，然后移出，等待2s；再重复此操作，
+    </script>
   </body>
 </html>
