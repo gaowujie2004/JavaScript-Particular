@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<script>
+  let mainSleep = function (duration = 1000) {
+    let date = Date.now();
+    while (Date.now() - date <= duration) {}
+  };
+  let start = performance.now();
+
+  setTimeout(function gogo() {
+    for (let i = 0; i < 1000; i++) {
+      setTimeout(function testTimeout() {
+        mainSleep(2);
+      }, 100);
+    }
+  }, 100);
+</script>

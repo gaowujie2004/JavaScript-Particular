@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <audio></audio>
+
+    <script>
+      const ac = new AudioContext();
+      const gainNode = ac.createGain(); // 音量调节
+      const analyser = ac.createAnalyser(); // 分析器
+      const filter = ac.createBiquadFilter(); // 滤波器, 控制音调
+
+      async function getBuffer() {
+        const dataRes = await fetch(
+          'https://dl.stream.qqmusic.qq.com/C400003jm7oN0AtRKM.m4a?guid=5531207746&vkey=8AC95D3953E9A9FDDCD2FEE9FEBB195D2906A6CE0E44332AB639FA7752FC20F1DE58BC62EDC101A298B59D4792547ADFDDBD3A9E938EE0D9&uin=363377482&fromtag=120032'
+        );
+        const dataBuf = await dataRes.arrayBuffer();
+        return dataBuf;
+      }
+
+      async function playAudio() {
+        const source = ac.createBufferSource();
+        source.buffer = await ac.decodeAudioData(await getBuffer());
+        source.connect(gainNode);
+        gainNode.connect(ac.destination);
+        source.start();
+      }
+
+      const updateVolume = (volume) => (gainNode.gain.value = volume);
+
+      document.onclick = () => {
+        playAudio();
+      };
+    </script>
+  </body>
+</html>

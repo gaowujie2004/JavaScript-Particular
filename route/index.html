@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>router</title>
+  </head>
+  <body>
+    <h1 onclick="go('/a')"><a href="/a" onclick="return false">a</a></h1>
+    <h1 onclick="go('/b')"><a href="/b" onclick="return false">b</a></h1>
+    <h1 onclick="go('/c')"><a href="/c" onclick="return false">c</a></h1>
+    <script>
+      function go(url) {
+        let obj = { name: url, math: 1 };
+        history.pushState({ name: obj }, null, url);
+
+        setInterval(() => {
+          obj.math++;
+          console.log(obj);
+        }, 500);
+      }
+
+      window.onpopstate = (ev) => {
+        console.log('弹出了', ev);
+      };
+    </script>
+  </body>
+</html>

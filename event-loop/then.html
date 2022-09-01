@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<script>
+  let mainSleep = function (duration = 1000) {
+    let date = Date.now();
+    while (Date.now() - date <= duration) {}
+  };
+  let start = performance.now();
+
+  function main() {
+    mainSleep(2);
+
+    // 防止调用栈溢出Error
+    if (performance.now() - start > 1000) {
+      console.log('--结束了');
+      return;
+    }
+    queueMicrotask(main);
+  }
+
+  main();
+</script>
