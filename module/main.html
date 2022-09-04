@@ -7,9 +7,10 @@
     <title>Document</title>
   </head>
   <body>
+    import 是单例模式，和cjs规范一样，不同文件引入同一个比如 com.js com.js 只会执行一次，导出的结果会被缓存起来。
     <script type="module">
-      import { a } from './a.js';
-      import { b } from './b.js';
+      import './a.js';
+      import './b.js';
     </script>
   </body>
 </html>
