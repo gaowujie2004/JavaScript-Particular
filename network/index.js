@@ -2,35 +2,39 @@
 
 // axios 的响应拦截器，当 一个 axios 封装过的请求对象，是 成功状态的promise
 // 那么才会调用 响应拦截器，如果不是，直接调用 失败的catch 回调
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 1000;
 // axios.defaults.validateStatus = (statue) => true;
 
-// axios.interceptors.request.use(
-//   (config) => {
-//     // request - axios 封装过的请求对象
-//     console.info(`%c🇨🇳请求拦截器OK`, 'font-size:25px;color:deeppink;', config);
-//     return config;
-//   },
-//   (error) => {
-//     console.info(`%c🇨🇳请求拦截器 - error`, 'font-size:25px;color:deeppink;', error);
-//     return error;
-//   }
-// );
+function axiosInterceptor() {
+  axios.interceptors.request.use(
+    (config) => {
+      // request - axios 封装过的请求对象
+      console.info(`%c🇨🇳请求拦截器 --- OK`, 'font-size:25px;color:deeppink;', config);
+      return config;
+    },
+    (error) => {
+      console.info(`%c🇨🇳请求拦截器 --- error`, 'font-size:25px;color:deeppink;', error);
+      return error;
+    }
+  );
 
-// axios.interceptors.response.use(
-//   (response) => {
-//     console.info('%c🇨🇳响应拦截器OK', 'font-size:25px;color:deeppink;', response);
-//     return Promise.resolve(response);
-//   },
-//   (error) => {
-//     console.info('%c🇨🇳响应拦截器--- error', 'font-size:25px;color:deeppink;', error);
-//     return Promise.reject(error);
-//   }
-// );
+  axios.interceptors.response.use(
+    (response) => {
+      console.info('%c🇨🇳响应拦截器 --- OK', 'font-size:25px;color:deeppink;', response);
+      return Promise.resolve(response);
+    },
+    (error) => {
+      console.info('%c🇨🇳响应拦截器 --- error', 'font-size:25px;color:deeppink;', error);
+      console.log(error.request === error.response);
+      return Promise.reject(error);
+    }
+  );
+}
 
 window.goAxios = function () {
   let cancelToken = axios.CancelToken;
   let cancel;
+  axiosInterceptor();
 
   axios
     .get('/', {
@@ -43,7 +47,9 @@ window.goAxios = function () {
     })
     .catch((err) => console.error('get.catch--', String(err)));
 
+  // setTimeout(() => {
   // cancel();
+  // }, 90);
 };
 
 window.goAjax = function () {
@@ -82,7 +88,7 @@ window.goAjax = function () {
     console.log(`onloadend: ${xhr.readyState}`, ReadyStateText[xhr.readyState], new Date().toLocaleTimeString(), Date.now());
   };
 
-  xhr.open('get', '/');
+  xhr.open('get', 'http://127.0.0.1:9082');
   console.log('--open 方法调用', Date.now());
 
   xhr.onload = function (ev) {
