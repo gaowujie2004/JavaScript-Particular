@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简单的闭包</title>
+  </head>
+  <body>
+    <script>
+      function father() {
+        const data = { name: 'GWJ' };
+        const uname = 'GWJ';
+
+        return function son() {
+          console.log('data: ', data);
+        };
+      }
+
+      const resFn = father();
+
+      var testGGG = 90;
+    </script>
+  </body>
+</html>

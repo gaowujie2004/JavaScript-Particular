@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // class TestData {
+      //   constructor() {
+      //     this.name = Math.random().toString();
+      //     this.dataList = new Array(5000).fill(0).map(() => Math.random().toString());
+      //   }
+      // }
+
+      // let globalDataList = [];
+
+      // document.onclick = () => {
+      //   const mockData = new TestData();
+      //   globalDataList.push(mockData);
+      // };
+
+      class TestData {
+        static count = 0;
+        constructor() {
+          this.name = Math.random().toString();
+          this.dataList = new Array(5000).fill(0).map(() => Math.random().toString());
+          this.count = TestData.count;
+        }
+      }
+
+      let globalData = null;
+      document.onclick = function handleClick() {
+        const originGlobalData = globalData;
+        function unused() {
+          if (!originGlobalData) return;
+
+          // 做一些事情......
+        }
+
+        TestData.count += 1; // 点击次数
+        globalData = {
+          data: new TestData(),
+          someMethod: function () {
+            // 做一些事情
+            // 但是没有使用到 originThing 常量
+          },
+        };
+      };
+    </script>
+  </body>
+</html>

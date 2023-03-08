@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>由闭包引起的内存泄漏</title>
+  </head>
+  <body>
+    <script>
+      class TestData {
+        static count = 0;
+        constructor() {
+          this.dataList = new Array(5000).fill(0).map(() => Math.random().toString());
+          this.count = TestData.count;
+        }
+      }
+
+      let globalData = null;
+      document.onclick = function handleClick() {
+        const originGlobalData = globalData;
+        function unused() {
+          if (!originGlobalData) return;
+
+          // 做一些事情......
+        }
+
+        TestData.count += 1; // 点击次数
+        globalData = {
+          data: new TestData(),
+          someMethod: function () {
+            // 做一些事情
+            // 但是没有使用到 originThing 常量
+          },
+        };
+      };
+    </script>
+
+    <script>
+      function father() {
+        let a1 = { name: 'a1' };
+        let a2 = { name: 'a2' };
+
+        eval('console.log("呵呵哈哈哈")');
+        return function son() {
+          console.log('哈哈哈啥也没意思');
+        };
+      }
+
+      const resFn = father();
+    </script>
+  </body>
+</html>
