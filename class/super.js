@@ -12,21 +12,28 @@
 
 /**================================== 为什么class extends时，构造函数为什么要先调用super，才能使用this的原因如下 **/
 function MyArray(...args) {
-  const father = new Array(...args);
-  const result = Object.create(father);
+  const result = new Array(...args);
+  result.__proto__ = MyArray.prototype; // Object.setPrototypeOf(result, MyArray.prototype);
+  MyArray.prototype.__proto__ = Array.prototype; // Object.setPrototypeOf(MyArray.prototype, Array.prototype);
 
   result.type = 'Array hhhh';
-
   return result;
 }
+MyArray.prototype.getLength = function () {
+  console.log('getLength:', this.length);
+};
 
-// Object.setPrototypeOf(MyArray.prototype, Array.prototype); // 无用代码
-
-//
-class MyArray extends Array {
+class MyArray2 extends Array {
   constructor(...args) {
     const res = super(...args);
     this.type = 'gaoWuJie';
     console.log('看看', res === this);
   }
+
+  getLength() {
+    console.log('getLength: ', this.length);
+  }
 }
+
+console.log('MyArray: ', new MyArray(1, 2, 3, 4));
+console.log('MyArray2: ', new MyArray2(1, 2, 3, 4));
