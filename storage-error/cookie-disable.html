@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>禁用 Cookie，read/write ERROR</title>
+  </head>
+  <body>
+    <script>
+      console.log('获取Cookie：', document.cookie);
+
+      console.log('开始设置Cookie');
+      document.cookie = 'uname=GaoWuJie';
+
+      console.log('再获取Cookie：', document.cookie);
+    </script>
+  </body>
+</html>
