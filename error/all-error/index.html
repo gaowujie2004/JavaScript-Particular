@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>window.onerror 捕获</title>
+  </head>
+  <body>
+    <script>
+      window.addEventListener(
+        'error',
+        (ev) => {
+          console.log('监听到错误: ev', ev);
+          console.log('监听到错误: ev.error', ev.error);
+          console.log('监听到错误: ev.message', ev.message);
+        },
+        {
+          capture: true,
+        }
+      );
+    </script>
+    <script>
+      throw 'test';
+    </script>
+    <img src="fsdf" alt="" />
+  </body>
+</html>
