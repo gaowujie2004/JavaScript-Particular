@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片重加载</title>
+    <script>
+      window.onerror = (ev) => {
+        console.info(`%c🇨🇳script error: `, 'font-size:25px;color:deeppink;', ev);
+        console.dir(ev);
+      };
+    </script>
+  </head>
+  <body>
+    <img src="https://images.pexels.com/photos/1563355/pexels-photo-1563355.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="加载失败了" />
+
+    <button>
+      <h1>&nbsp;重&nbsp;试&nbsp;</h1>
+    </button>
+
+    <script>
+      function sleep(duration = 1000) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(true);
+          }, duration);
+        });
+      }
+
+      function loadImage(src) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          image.src = src;
+
+          image.onload = () => {
+            console.log('onload ');
+            resolve('onload');
+          };
+          image.onerror = (err) => {
+            console.log('onerror');
+            reject(err);
+          };
+        });
+      }
+
+      const image = document.querySelector('img');
+      image.onerror = async (err) => {
+        console.log('img onerror ev: ', err);
+        console.log('img html: ', image.complete);
+      };
+
+      // 图片加载完成，所有的数据完成，但不一定解码成功
+      image.onload = () => {
+        console.log('img onload');
+      };
+
+      image.onabort = () => {
+        console.log('img abort');
+      };
+    </script>
+
+    <script>
+      const button = document.querySelector('button');
+      button.onclick = async () => {
+        console.log('click');
+        loadImage('https://images.pexels.com/photos/1563355/pexels-photo-1563355.jpeg?auto=compress&cs=tinysrgb&w=1600').then(() => {
+          console.log('成功啦');
+          image.src = 'https://images.pexels.com/photos/1563355/pexels-photo-1563355.jpeg?auto=compress&cs=tinysrgb&w=1600';
+          // 只要手动设置 dom 的src，就会使视频重新请求资源，无论链接是否相同。
+
+          //   video.load(); // 也会重新加载资源  和 video.src = 'xxx' 是一样的
+        });
+      };
+
+      function jsok(ev) {
+        console.log('脚本加载OK');
+      }
+      function jserror(ev) {
+        console.log('脚本加载ERROR', ev);
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js" onerror="jserror(event)" onload="jsok(event)"></script>
+  </body>
+</html>

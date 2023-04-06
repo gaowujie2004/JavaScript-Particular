@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>视频重加载</title>
+  </head>
+  <body>
+    <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls></video>
+
+    <button>
+      <h1>&nbsp;重&nbsp;试&nbsp;</h1>
+    </button>
+    <script>
+      function sleep(duration = 1000) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(true);
+          }, duration);
+        });
+      }
+
+      function loadVideo(src) {
+        return new Promise((resolve, reject) => {
+          const video = document.createElement('video');
+          video.src = src;
+
+          // 没有该事件，或者说不是这样用的
+          video.onload = () => {
+            console.log('onload ');
+            resolve('onload');
+          };
+          video.onerror = (err) => {
+            // console.log('onerror');
+            reject(err);
+          };
+
+          // 有
+          video.onloadedmetadata = () => {
+            // console.log('onloadedmetadata ');
+            resolve('onload');
+          };
+        });
+      }
+
+      const video = document.querySelector('video');
+      video.onerror = async () => {
+        console.log('video onerror: ', video.error);
+      };
+      video.onloadeddata = () => {
+        console.log('video onloaddata');
+      };
+
+      const button = document.querySelector('button');
+      button.onclick = async () => {
+        console.log('click');
+        // video.load(); // 也会重新加载资源  和 video.src = 'xxx' 是一样的
+        video.src = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4';
+
+        // loadVideo('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4').then(() => {
+        //   console.log('成功啦');
+        //   // video.src = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4';
+        //   // 只要手动设置 dom 的src，就会使视频重新请求资源，无论链接是否相同。
+
+        //   video.load(); // 也会重新加载资源  和 video.src = 'xxx' 是一样的
+        // });
+      };
+    </script>
+  </body>
+</html>
