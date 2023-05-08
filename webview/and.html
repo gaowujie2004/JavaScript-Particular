@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <title>安卓端 键盘弹起 输入框被覆盖</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      main {
+        position: fixed;
+        height: 100%;
+        background-color: pink;
+        width: 50px;
+        top: 0;
+      }
+      input {
+        display: block;
+        margin-top: 600px;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        /* bottom: 0; */
+        left: 0;
+        right: 0;
+        height: 40px;
+        background-color: red;
+        z-index: 100;
+      }
+
+      .test-h {
+        background-color: skyblue;
+        height: 2000px;
+        width: 20px;
+      }
+      .bottom {
+        width: 20px;
+        height: 100px;
+        background-color: pink;
+
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+      }
+    </style>
+    <nav></nav>
+    <main></main>
+    <input type="text" placeholder="请输入" />
+    <p class="test-h"></p>
+
+    <div class="bottom"></div>
+
+    <script>
+      window.onresize = () => {
+        // alert('缩小了');
+      };
+
+      console.log('--init', document.documentElement.clientHeight);
+
+      document.querySelector('input').onfocus = () => {
+        // console.log('--focus');
+        setTimeout(() => {
+          console.log('--settimeout', document.querySelector('input').getBoundingClientRect());
+          // document.querySelector('input').scrollIntoViewIfNeeded();
+          // document.body.scrollIntoViewIfNeeded();
+        }, 1000);
+      };
+
+      window.onscroll = () => {
+        console.log('--scroll');
+      };
+
+      document.body.innerHTML = navigator.userAgent;
+
+      location.href = 'https://baidu.com';
+      console.log('输出输出---------------');
+    </script>
+  </body>
+</html>
