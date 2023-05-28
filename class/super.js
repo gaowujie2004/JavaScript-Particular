@@ -11,6 +11,8 @@
 // 上面是错误的
 
 /**================================== 为什么class extends时，构造函数为什么要先调用super，才能使用this的原因如下 **/
+// 总的原因就是在 子类构造函数中 return 的是 super的构造函数实例
+
 function MyArray(...args) {
   const result = new Array(...args);
   result.__proto__ = MyArray.prototype; // Object.setPrototypeOf(result, MyArray.prototype);
