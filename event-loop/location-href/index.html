@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>location.href=xxxx 同步还是异步？</title>
+  </head>
+  <body>
+    <script>
+      document.onclick = () => {
+        location.href = './location-href-target.html';
+        console.log('index.html开始 location.href 跳转');
+        alert(111);
+      };
+    </script>
+  </body>
+</html>
