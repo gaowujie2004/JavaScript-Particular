@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>无缝滚动</title>
+  </head>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      @keyframes rowup {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        25% {
+          transform: translate3d(0, -12.5%, 0);
+        }
+        50% {
+          transform: translate3d(0, -25%, 0);
+        }
+        75% {
+          transform: translate3d(0, -37.5%, 0);
+
+        }
+        100% {
+          transform: translate3d(0, -50%, 0);
+          
+        }
+      }
+      .list {
+        width: 200px;
+        border: 1px solid #999;
+        margin: 20px auto;
+        position: relative;
+        height: 100px;
+        overflow: hidden;
+      }
+
+      .list .rowup {
+        animation: 10s rowup infinite normal;
+        animation-timing-function: steps(0, end);
+        position: relative;
+      }
+      p {
+        height: 100px;
+      }
+      p:nth-child(1) {
+        background-color: pink;
+      }
+    </style>
+
+    <div class="list">
+      <div class="cc rowup">
+        <p>
+          <h1>AAAAA</h1>
+        </p>
+
+        <p>
+          <h1>BBBBB</h1>
+        </p>
+
+        <p>
+          <h1>CCCCC</h1>
+        </p>
+
+        <p>
+          <h1>DDDDD</h1>
+        </p>
+
+
+        <p>
+          <h1>AAAAA</h1>
+        </p>
+
+        <p>
+          <h1>BBBBB</h1>
+        </p>
+
+        <p>
+          <h1>CCCCC</h1>
+        </p>
+
+        <p>
+          <h1>DDDDD</h1>
+        </p>
+      </div>
+    </div>
+
+    https://www.xiabingbao.com/css3/2017/07/03/css3-infinite-scroll.html 教程
+  </body>
+</html>
