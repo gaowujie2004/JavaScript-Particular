@@ -17,10 +17,10 @@
 
       main {
         position: fixed;
-        height: 100%;
         background-color: pink;
         width: 50px;
         top: 0;
+        height: 100vh;
       }
       input {
         display: block;
@@ -55,16 +55,16 @@
     <nav></nav>
     <main></main>
     <input type="text" placeholder="请输入" />
-    <p class="test-h"></p>
+    <!-- <p class="test-h"></p> -->
 
     <div class="bottom"></div>
 
     <script>
-      window.onresize = () => {
-        // alert('缩小了');
-      };
+      console.log('--init height', document.documentElement.clientHeight, document.body.clientHeight, window.innerHeight, screen.availHeight);
 
-      console.log('--init', document.documentElement.clientHeight);
+      window.onresize = () => {
+        console.log('--缩小了 height', document.documentElement.clientHeight, document.body.clientHeight, window.innerHeight, screen.availHeight);
+      };
 
       document.querySelector('input').onfocus = () => {
         // console.log('--focus');
@@ -76,13 +76,11 @@
       };
 
       window.onscroll = () => {
-        console.log('--scroll');
+        console.log('--scroll', document.documentElement.clientHeight, document.body.clientHeight, window.innerHeight, screen.availHeight);
+        console.log('--滚动量', document.documentElement.scrollTop);
       };
 
-      document.body.innerHTML = navigator.userAgent;
-
-      location.href = 'https://baidu.com';
-      console.log('输出输出---------------');
+      // 交换次数：
     </script>
   </body>
 </html>
