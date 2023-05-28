@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        position: relative;
+        height: 300px;
+        overflow: auto;
+        border: 1px solid red;
+      }
+      .test {
+        position: sticky; /* 固定定位 */
+        top: 0; /* 距离容器顶部的距离 */
+        background-color: #f5f5f5;
+        height: 100px;
+        width: 20%;
+      }
+      .div-height {
+        height: 2000px;
+        width: 90%;
+        background-color: pink;
+      }
+    </style>
+    <main class="container">
+      <div class="test"></div>
+      <div class="div-height"></div>
+    </main>
+
+    <script>
+      const ob = new ResizeObserver((entries) => {
+        console.log('box2 改变', entries);
+      });
+
+      ob.observe(box2);
+    </script>
+  </body>
+</html>
