@@ -18,8 +18,9 @@ function MyArray(...args) {
   result.__proto__ = MyArray.prototype; // Object.setPrototypeOf(result, MyArray.prototype);
   MyArray.prototype.__proto__ = Array.prototype; // Object.setPrototypeOf(MyArray.prototype, Array.prototype);
 
-  result.type = 'Array hhhh';
-  return result;
+  result.type = 'Array hhhh'; // 子类MyArray的实例属性
+
+  return result; // result 是个对象，那么 new MyArray() 返回值就是 result；若result不是对象，则返回值是this
 }
 MyArray.prototype.getLength = function () {
   console.log('getLength:', this.length);
