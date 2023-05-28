@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>交叉API</title>
+  </head>
+  <body>
+    <style>
+      html {
+      }
+      main {
+        height: 1500px;
+      }
+      div {
+        background-color: pink;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 500px;
+      }
+    </style>
+    <main></main>
+    <div></div>
+    <script>
+      let div = document.querySelector('div');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          console.info(`%c🇨🇳当前模块展示: `, 'font-size:25px;color:deeppink;', entries);
+        },
+        {
+          // threshold: [0, 0.1, 0.4, 0.5],
+          rootMargin: '0px 0px -20px 0px',
+        }
+      );
+      observer.observe(div);
+    </script>
+  </body>
+</html>
