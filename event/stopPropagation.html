@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stopPropagation</title>
+  </head>
+  <body>
+    <style>
+      .father {
+        width: 500px;
+        height: 500px;
+        background-color: pink;
+        padding: 20px;
+
+        overflow-y: auto;
+      }
+
+      .son {
+        width: 200px;
+        height: 2000px;
+        background-color: skyblue;
+      }
+    </style>
+    <div class="father">
+      <div class="son"></div>
+    </div>
+
+    <script>
+      const father = document.querySelector('.father');
+      const son = document.querySelector('.son');
+
+      window.addEventListener(
+        'scroll',
+        function (e) {
+          console.log('window scroll 捕获');
+          // e.stopPropagation();
+        },
+        { capture: true }
+      );
+
+      father.addEventListener(
+        'scroll',
+        function (e) {
+          console.log('----father scroll 捕获');
+          e.stopPropagation();
+        },
+        { capture: true }
+      );
+    </script>
+  </body>
+</html>
