@@ -1,0 +1,14 @@
+{
+  "ts-node": {
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "CommonJS"
+    }
+  },
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
+  },
+  "include": ["./**/*.ts"]
+}
