@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>过渡事件</title>
+  </head>
+  <body>
+    <style>
+      .box {
+        margin-left: 70px;
+        margin-top: 30px;
+        border-style: solid;
+        border-width: 1px;
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: #0000ff;
+        color: #ffffff;
+        padding: 20px;
+        font: bold 1.6em 'Helvetica', 'Arial', sans-serif;
+        transition: width 2s, height 2s, background-color 2s, transform 2s, color 2s;
+      }
+
+      .son {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        margin-left: 150px;
+        transition: background 300ms;
+      }
+      .son:hover {
+        background-color: skyblue;
+      }
+    </style>
+    <div class="box">
+      <div class="son"></div>
+    </div>
+
+    <script>
+      let box = document.querySelector('.box');
+      box.ontransitionrun = function (event) {
+        // box.textContent = 'Zooming...';
+      };
+      box.ontransitionend = function (event) {
+        // box.textContent = 'Done!';
+        console.log('。father 动画结束');
+      };
+
+      let son = document.querySelector('.son');
+      son.ontransitionend = function (event) {
+        son.textContent = 'SON Done!';
+      };
+    </script>
+  </body>
+</html>
