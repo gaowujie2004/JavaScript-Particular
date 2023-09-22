@@ -6,9 +6,10 @@
     }
   },
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES5",
     "module": "CommonJS",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"]
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "experimentalDecorators": true
   },
-  "include": ["./**/*.ts"]
+  "include": ["./ts-decorate/*.ts"]
 }

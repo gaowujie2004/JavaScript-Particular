@@ -1,0 +1,23 @@
+{
+  "name": "js-particular",
+  "version": "1.0.0",
+  "description": "通过 DEMO，深入理解 JavaScript 中的知识点。更侧重讲解背后的原理，虽然不侧重项目经验，但可用于反哺项目优化。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaowujie2004/JS_particular.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaowujie2004/JS_particular/issues"
+  },
+  "homepage": "https://github.com/gaowujie2004/JS_particular#readme",
+  "dependencies": {
+    "fflate": "^0.8.0"
+  }
+}

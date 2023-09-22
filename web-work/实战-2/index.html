@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>service-worker TEST</title>
+  </head>
+  <body>
+    <style>
+      button {
+        font-size: 24px;
+        margin: 10px;
+        padding: 10px;
+      }
+    </style>
+
+    <button disabled>安装</button>
+
+    <button id="fetch" disabled>fetch</button>
+
+    <button id="open-window" disabled>打开窗口</button>
+
+    <button id="iframe-download" disabled>iframe</button>
+
+    <button id="tongxin" disabled>通信</button>
+    <button id="download">下载</button>
+
+    <button id="zip">测试zip</button>
+
+    <button id="transform">封装转换流</button>
+
+    <button id="ok">分享最终版</button>
+
+    <script src="/index.js"></script>
+    <script src="/index-2.js" type="module"></script>
+    <script src="/index-transform.js" type="module"></script>
+    <script src="/index-ok.js" type="module"></script>
+  </body>
+</html>
