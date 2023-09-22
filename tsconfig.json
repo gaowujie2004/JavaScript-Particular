@@ -6,7 +6,7 @@
     }
   },
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES2016",
     "module": "CommonJS",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "experimentalDecorators": true
