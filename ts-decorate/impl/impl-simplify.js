@@ -38,13 +38,15 @@ function __decorate(decorators, target, key, desc) {
     ret ||= originRet;
   }
 
-  // 方法、参数、存取器装饰器
+  // 方法、存取器装饰器
+  // 参数装饰器函数的值永远是 undefined，因为 __params函数
   if (paramNumber > 3 && ret) {
     Object.defineProperty(target, key, ret);
   }
   return ret;
 }
 
+// 用于参数装饰器
 function __param(paramIndex, decoratorFn) {
   return function (target, key) {
     // 返回值无效

@@ -4,6 +4,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 function ClassDecorate() {
     console.log("classDecorate: factory call");
     return function (Target) {
@@ -41,15 +44,11 @@ function property() {
         console.log("property decorate: ", target, key);
     };
 }
-// @ClassDecorate()
-// class ExampleClass {
-// @property()
-// uname = 'gwj';
-// @first()
-// @second()
-// getTest(@params() id: string) {}
-// static getStatic(@params() id: string) {}
-// }
+function LogOrder(name) {
+    return function (...args) {
+        console.log(`LogOrder: ${name}: `, args);
+    };
+}
 function add(num) {
     return function addDecorator(target, methodName, descriptor) {
         console.log("addDecorator", target, methodName, descriptor);
@@ -68,14 +67,39 @@ function mul(num) {
         };
     };
 }
+function Query(target, methodName, paramIndex) {
+    //
+}
+function Getter(target, methodName, descriptor) {
+    console.log("Getter", target, methodName, descriptor);
+    return {
+        get() {
+            return "x";
+        },
+    };
+}
 class Test {
     getNum() {
         return 10;
+    }
+    getFetch(query = {}) {
+        console.log("getFetch", query);
+    }
+    get password() {
+        return 1234;
     }
 }
 __decorate([
     add(2),
     mul(3)
 ], Test.prototype, "getNum", null);
+__decorate([
+    LogOrder("类别B-方法"),
+    __param(0, LogOrder("类别B-参数")),
+    __param(0, Query)
+], Test.prototype, "getFetch", null);
+__decorate([
+    Getter
+], Test.prototype, "password", null);
 let t = new Test();
 console.log(t.getNum());

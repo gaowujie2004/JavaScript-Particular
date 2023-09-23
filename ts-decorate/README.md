@@ -34,3 +34,9 @@ Object.getOwnPropertyNames(Test.prototype); // -> ["constructor", "name"]
 ## 5. 参数装饰器
 
 ## 执行顺序
+
+## 总结
+
+方法、存取器因为入参有 descriptor 属性描述对象，所以可以返回或者直接修改 descriptor 属性，即可修改函数的行为。
+类、参数装饰器函数没有 descriptor 属性描述对象，不能修改行为
+属性装饰器函数，比较特殊。可以修改原型对象的 descriptor 属性描述对象。

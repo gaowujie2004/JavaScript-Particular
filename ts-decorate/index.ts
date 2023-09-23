@@ -52,15 +52,11 @@ function property() {
   };
 }
 
-// @ClassDecorate()
-// class ExampleClass {
-// @property()
-// uname = 'gwj';
-// @first()
-// @second()
-// getTest(@params() id: string) {}
-// static getStatic(@params() id: string) {}
-// }
+function LogOrder(name) {
+  return function (...args) {
+    console.log(`LogOrder: ${name}: `, args);
+  };
+}
 
 function add(num) {
   return function addDecorator(
@@ -90,11 +86,39 @@ function mul(num) {
   };
 }
 
+function Query(
+  target: Object,
+  methodName: string | symbol,
+  paramIndex: number
+) {
+  //
+}
+
+function Getter(target: Object, methodName: string | symbol, descriptor) {
+  console.log("Getter", target, methodName, descriptor);
+
+  return {
+    get() {
+      return "x" as any;
+    },
+  };
+}
+
 class Test {
   @add(2)
   @mul(3)
   getNum() {
     return 10;
+  }
+
+  @LogOrder("类别B-方法")
+  getFetch(@LogOrder("类别B-参数") @Query query: object = {}) {
+    console.log("getFetch", query);
+  }
+
+  @Getter
+  get password() {
+    return 1234;
   }
 }
 
